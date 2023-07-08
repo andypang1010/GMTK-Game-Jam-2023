@@ -102,9 +102,18 @@ public class BlockEditor : MonoBehaviour
                 continue;
             }
 
-            // TODO: support custom probability
-            int randBlock = Random.Range(0, 2);
-            blockMap.SetTile(randCell, blockTiles[randBlock]);
+            // Generate based on custom probability
+            float probabilitySum = 0;
+            float randomNum = Random.value;
+            for(int j = 0; j < generationProbabilities.Count; j++)
+            {
+                if (randomNum >= probabilitySum && randomNum < probabilitySum + generationProbabilities[j])
+                {
+                    blockMap.SetTile(randCell, blockTiles[j]);
+                    break;
+                }
+                probabilitySum += generationProbabilities[j];
+            }
 
             // set wall below
             randCell.y--;
