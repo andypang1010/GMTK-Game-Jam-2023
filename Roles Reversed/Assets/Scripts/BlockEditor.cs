@@ -46,6 +46,7 @@ public class BlockEditor : MonoBehaviour
         // Reset activeTile when mouse button is let go
         if (Input.GetMouseButtonUp(0))
         {
+            activeTile.gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
             activeTile = null;
             AstarPath.active.Scan();
         }
@@ -55,6 +56,7 @@ public class BlockEditor : MonoBehaviour
         {
             previous = curCell;
             activeTile = blockMap.GetTile<Tile>(previous);
+            activeTile.gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
         }
 
         // Don't do anything when
@@ -119,6 +121,7 @@ public class BlockEditor : MonoBehaviour
                 }
             }
         }
+        AstarPath.active.Scan();
     }
 
     // Check if cell below is a movable block
