@@ -6,7 +6,10 @@ using UnityEngine.Tilemaps;
 public class BlockEditor : MonoBehaviour
 {
     public Tile boxTile;
+    public Tile wallTile;
     public Tilemap blockMap;
+
+    public List<string> movableTiles;
 
     private Tile activeTile;
     private Vector3Int previous;
@@ -21,6 +24,7 @@ public class BlockEditor : MonoBehaviour
     void Update()
     {
         Vector3Int curCell = blockMap.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+        Tile curTile = blockMap.GetTile<Tile>(curCell);
 
         // Reset activeTile when mouse button is let go
         if (Input.GetMouseButtonUp(0))
@@ -29,7 +33,7 @@ public class BlockEditor : MonoBehaviour
         }
 
         // Initialize variables when mouse button is first pressed
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && curTile != null && movableTiles.Contains(curTile.name))
         {
             previous = curCell;
             activeTile = blockMap.GetTile<Tile>(previous);
@@ -39,18 +43,61 @@ public class BlockEditor : MonoBehaviour
         // 1) button is not pressed
         // 2) or activeTile is null because player didn't click on a tile
         // 3) or player is trying to move a tile on top of another tile
-        if (!Input.GetMouseButton(0) || activeTile == null || (previous != curCell && blockMap.HasTile(curCell)))
+        if (!Input.GetMouseButton(0) || activeTile == null || (previous != curCell && IsMovable(curCell)))
         {
             return;
         }
 
         Vector3Int hoveredTile = curCell;
-        
+
         // Set the previous tile to nothing
         blockMap.SetTile(previous, null);
         previous = hoveredTile;
 
         // Set the mouse position cell to selected tile
         blockMap.SetTile(hoveredTile, activeTile);
+
+        UpdateBlockWalls();
+    }
+
+    private void UpdateBlockWalls()
+    {
+        for (int x = blockMap.cellBounds.min.x; x < blockMap.cellBounds.max.x; x++)
+        {
+            for (int y = blockMap.cellBounds.min.y; y < blockMap.cellBounds.max.y; y++)
+            {
+                Vector3Int cur = new Vector3Int(x, y);
+                if (!blockMap.HasTile(cur))
+                {
+                    if (!BelowIsMovable(cur, out Vector3Int cellBelow))
+                    {
+                        blockMap.SetTile(cellBelow, null);
+                    }
+                    continue;
+                }
+                if (IsMovable(cur) && !BelowIsMovable(cur, out Vector3Int cellBelow1))
+                {
+                    blockMap.SetTile(cellBelow1, wallTile);
+                }
+            }
+        }
+    }
+
+    private bool BelowIsMovable(Vector3Int cur, out Vector3Int cellBelow)
+    {
+        cellBelow = cur;
+        cellBelow.y -= 1;
+
+        return IsMovable(cellBelow);
+    }
+
+    private bool IsMovable(Vector3Int cell)
+    {
+        if (!blockMap.HasTile(cell))
+        {
+            return false;
+        }
+        Tile tileBelow = blockMap.GetTile<Tile>(cell);
+        return movableTiles.Contains(tileBelow.name);
     }
 }
