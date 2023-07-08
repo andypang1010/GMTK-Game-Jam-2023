@@ -5,24 +5,40 @@ using UnityEngine.Tilemaps;
 
 public class BlockEditor : MonoBehaviour
 {
-    public Tile boxTile;
-    public Tile wallTile;
+    public List<Tile> blockTiles;
+    public List<Tile> wallTiles;
     public Tilemap blockMap;
 
     public List<string> movableTiles;
 
+    public float innerSpawnRadius;
+    public float outerSpawnRadius;
+    public int numberOfBlocks;
+
     private Tile activeTile;
     private Vector3Int previous;
+    private Dictionary<Tile, Tile> blockToWall = new Dictionary<Tile, Tile>();
 
     // Start is called before the first frame update
     void Start()
     {
         previous = blockMap.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+        for (int i = 0; i < wallTiles.Count; i++)
+        {
+            blockToWall.Add(blockTiles[i], wallTiles[i]);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        UpdateBlockWalls();
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            GenerateBlocks();
+        }
+
         Vector3Int curCell = blockMap.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
         Tile curTile = blockMap.GetTile<Tile>(curCell);
 
@@ -30,6 +46,7 @@ public class BlockEditor : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             activeTile = null;
+            AstarPath.active.Scan();
         }
 
         // Initialize variables when mouse button is first pressed
@@ -56,8 +73,26 @@ public class BlockEditor : MonoBehaviour
 
         // Set the mouse position cell to selected tile
         blockMap.SetTile(hoveredTile, activeTile);
+    }
 
-        UpdateBlockWalls();
+    private void GenerateBlocks()
+    {
+        blockMap.ClearAllTiles();
+
+        for (int i = 0; i < numberOfBlocks; i++)
+        {
+            float randomAngle = Random.Range(0, 2 * Mathf.PI);
+            float randomDist = Random.Range(innerSpawnRadius, outerSpawnRadius);
+            Vector2 dir = new Vector2(Mathf.Cos(randomAngle), Mathf.Sin(randomAngle));
+
+            Vector3Int randCell = blockMap.WorldToCell(dir * randomDist);
+            if(blockMap.HasTile(randCell))
+            {
+                i--;
+                continue;
+            }
+            blockMap.SetTile(randCell, blockTiles[0]);
+        }
     }
 
     // Draw block walls
@@ -78,7 +113,8 @@ public class BlockEditor : MonoBehaviour
                 }
                 if (IsMovable(cur) && !BelowIsMovable(cur, out Vector3Int cellBelow1))
                 {
-                    blockMap.SetTile(cellBelow1, wallTile);
+                    Tile curTile = blockMap.GetTile<Tile>(cur);
+                    blockMap.SetTile(cellBelow1, blockToWall[curTile]);
                 }
             }
         }
