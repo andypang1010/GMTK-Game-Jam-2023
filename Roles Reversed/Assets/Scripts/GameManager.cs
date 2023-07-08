@@ -1,40 +1,42 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     private float timer;
+    private int numEnemiesInWave;
+    private int numEnemiesInGroup;
+    private int numEnemiesSpawned;
+    private int numEnemiesRemaining;
+    private int nextSpawnInterval;
+    private float lastSpawnTime;
 
     [Header("Waves")]
-    public int wave;
     [SerializeField]
-    private int minNumberOfEnemies;
+    private int wave = 0;
     [SerializeField]
-    private int maxNumberOfEnemies;
+    private int minNumberOfEnemies = 3;
     [SerializeField]
-    private int enemySpawnRadius;
+    private int maxNumberOfEnemies = 7;
     [SerializeField]
-    private int totalNumberOfEnemies;
+    private int enemySpawnRadius = 15;
     [SerializeField]
-    private int numEnemiesPerGroup;
+    private int minGroupSpawnInterval = 3;
     [SerializeField]
-    private int groupSpawnInterval;
-    [SerializeField]
-    private int numberOfEnemiesRemaining;
+    private int maxGroupSpawnInterval = 10;
 
     [Header("Stats")]
     public int score;
-    public int health;
+    public int health = 3;
 
 
     void Start()
     {
         // Initialize timer, wave, and score
         timer = 0f;
-        wave = 1;
+        wave = 0;
         score = 0;
+        lastSpawnTime = Time.time;
     }
 
     void Update()
@@ -51,10 +53,23 @@ public class GameManager : MonoBehaviour
         }
 
         // Start a new wave if no enemies left
-        if (numberOfEnemiesRemaining <= 0)
+        if (numEnemiesRemaining <= 0)
         {
             NewWave();
             print("NEW WAVE!");
+        }
+
+        // Spawn groups of enemies at a random time interval if number of enemies spawned < total number of enemies in wave
+        else
+        {
+            if (Time.time - lastSpawnTime >= nextSpawnInterval
+                && numEnemiesSpawned < numEnemiesInWave)
+            {
+                SpawnEnemies();
+                lastSpawnTime = Time.time;
+                nextSpawnInterval = UnityEngine.Random.Range(minGroupSpawnInterval, maxGroupSpawnInterval + 1);
+                print("Next Spawn Interval: " + nextSpawnInterval);
+            }
         }
     }
 
@@ -70,12 +85,17 @@ public class GameManager : MonoBehaviour
     {
         wave++;
         print("Current Wave #: " + wave);
-        totalNumberOfEnemies = UnityEngine.Random.Range(minNumberOfEnemies * wave, (maxNumberOfEnemies + 1) * wave);
-        numberOfEnemiesRemaining = totalNumberOfEnemies;
+        numEnemiesInWave = UnityEngine.Random.Range(minNumberOfEnemies * wave, (maxNumberOfEnemies + 1) * wave);
+        print(numEnemiesInWave + " enemies");
+        numEnemiesRemaining = numEnemiesInWave;
+        numEnemiesSpawned = 0;
     }
 
+    // Spawn enemies at spawn radius
     void SpawnEnemies()
     {
-
+        numEnemiesInGroup = UnityEngine.Random.Range(1, numEnemiesRemaining / 10);
+        numEnemiesSpawned += numEnemiesInGroup;
+        print("Spawned " + numEnemiesInGroup + " enemies at: " + Time.time);
     }
 }

@@ -288,7 +288,7 @@ GameObject:
   - component: {fileID: 1795015207}
   m_Layer: 0
   m_Name: Game Manager
-  m_TagString: Untagged
+  m_TagString: GameController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -324,9 +324,7 @@ MonoBehaviour:
   minNumberOfEnemies: 3
   maxNumberOfEnemies: 7
   enemySpawnRadius: 15
-  totalNumberOfEnemies: 0
-  numEnemiesPerGroup: 0
-  groupSpawnInterval: 0
-  numberOfEnemiesRemaining: 0
+  minGroupSpawnInterval: 3
+  maxGroupSpawnInterval: 5
   score: 0
   health: 3
