@@ -7,7 +7,7 @@ public class EnemyHealth : MonoBehaviour
 	LevelManager level;
 	StatsManager stats;
 
-	public int health;
+	public int health = 4;
 	public int maxHealth = 4;
 	public int score = 5;
 
@@ -34,7 +34,7 @@ public class EnemyHealth : MonoBehaviour
         {
             level.DecrementEnemiesRemaining();
 			stats.SetScore(score);
-			Destroy(this.gameObject);
+			Destroy(gameObject);
         }
     }
 
