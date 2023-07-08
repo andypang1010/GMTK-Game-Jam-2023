@@ -14,6 +14,7 @@ public class BlockEditor : MonoBehaviour
     public float innerSpawnRadius;
     public float outerSpawnRadius;
     public int numberOfBlocks;
+    public List<float> generationProbabilities;
 
     private Tile activeTile;
     private Vector3Int previous;
