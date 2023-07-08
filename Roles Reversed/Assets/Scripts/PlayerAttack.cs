@@ -24,6 +24,7 @@ public class PlayerAttack : MonoBehaviour
         
     }
 
+    // Add enemy to attack queue when entering attack radius
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Enemy"))
@@ -32,6 +33,7 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
+    // Remove enemy from attack queue when exiting attack radius or becomes dead
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (attackQueue.Contains(collision.gameObject))
@@ -40,6 +42,7 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
+    // Attack whenever an enemy is within radius
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.CompareTag("Enemy") && !attacking)
@@ -48,11 +51,13 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
+    // Attack animation coroutine
     private IEnumerator Attack(GameObject target)
     {
         attacking = true;
         float curAngle = 0f;
 
+        // Offset sword angle
         sword.transform.up = target.transform.position - transform.position;
         sword.transform.rotation = sword.transform.rotation * Quaternion.Euler(0, 0, attackAngle/2);
 
