@@ -34,7 +34,7 @@ public class StatsManager : MonoBehaviour
         // Timer increments by Time.deltaTime
         timer += Time.deltaTime;
         //print(FormatTime(timer));
-        print("Score: " + score);
+        //print("Score: " + score);
     }
 
     // Format time from seconds to hh:mm:ss format
