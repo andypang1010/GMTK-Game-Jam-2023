@@ -8,20 +8,20 @@ public class PlayerAttack : MonoBehaviour
     public GameObject sword;
     public float attackFrequency = 5;
     public float attackAngle = 45;
+    public float attackRadius = 1.5f;
 
     private bool attacking = false;
     private List<GameObject> attackQueue = new List<GameObject>();
+    private CircleCollider2D attackCollider;
 
-    // Start is called before the first frame update
     void Start()
     {
-        
+        attackCollider = GetComponent<CircleCollider2D>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        attackCollider.radius = attackRadius;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
