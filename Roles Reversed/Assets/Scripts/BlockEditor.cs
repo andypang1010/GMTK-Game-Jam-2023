@@ -60,6 +60,7 @@ public class BlockEditor : MonoBehaviour
         UpdateBlockWalls();
     }
 
+    // Draw block walls
     private void UpdateBlockWalls()
     {
         for (int x = blockMap.cellBounds.min.x; x < blockMap.cellBounds.max.x; x++)
@@ -83,6 +84,7 @@ public class BlockEditor : MonoBehaviour
         }
     }
 
+    // Check if cell below is a movable block
     private bool BelowIsMovable(Vector3Int cur, out Vector3Int cellBelow)
     {
         cellBelow = cur;
@@ -91,6 +93,7 @@ public class BlockEditor : MonoBehaviour
         return IsMovable(cellBelow);
     }
 
+    // Check if cell is a movable block
     private bool IsMovable(Vector3Int cell)
     {
         if (!blockMap.HasTile(cell))
