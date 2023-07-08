@@ -41,31 +41,41 @@ public class GameManager : MonoBehaviour
     {
         // Timer increments by Time.deltaTime
         timer += Time.deltaTime;
-        print(FormatTime(timer));
+        //print(FormatTime(timer));
 
+        // Game ends if no health left
         if (health <= 0)
         {
             print("GAME OVER!");
             Application.Quit();
         }
 
+        // Start a new wave if no enemies left
         if (numberOfEnemiesRemaining <= 0)
         {
             NewWave();
+            print("NEW WAVE!");
         }
     }
 
-    /// <summary> Format time from seconds to hh:mm:ss format </summary>
+    // Format time from seconds to hh:mm:ss format
     string FormatTime(float t)
     {
         TimeSpan formatted = TimeSpan.FromSeconds(t);
         return formatted.ToString(@"hh\:mm\:ss");
     }
 
+    // Create a new wave of enemies
     void NewWave()
     {
         wave++;
+        print("Current Wave #: " + wave);
         totalNumberOfEnemies = UnityEngine.Random.Range(minNumberOfEnemies * wave, (maxNumberOfEnemies + 1) * wave);
         numberOfEnemiesRemaining = totalNumberOfEnemies;
+    }
+
+    void SpawnEnemies()
+    {
+
     }
 }
