@@ -9,6 +9,7 @@ public class BlockEditor : MonoBehaviour
     public List<Tile> blockTiles;
     public List<Tile> wallTiles;
     public Tilemap blockMap;
+    public Tilemap transparentMap;
 
     public List<string> movableTiles;
 
@@ -34,6 +35,7 @@ public class BlockEditor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // TODO: only generate when needed
         if (Input.GetKeyDown(KeyCode.Space))
         {
             GenerateBlocks();
@@ -45,7 +47,14 @@ public class BlockEditor : MonoBehaviour
         // Reset activeTile when mouse button is let go
         if (Input.GetMouseButtonUp(0))
         {
-            //activeTile.gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
+            if (activeTile != null)
+            {
+                blockMap.SetTile(previous, activeTile);
+                UpdateTileAtPos(previous, blockMap);
+            }
+            transparentMap.SetTile(previous, null);
+            UpdateTileAtPos(previous, transparentMap);
+
             activeTile = null;
             AstarPath.active.Scan();
         }
@@ -55,7 +64,10 @@ public class BlockEditor : MonoBehaviour
         {
             previous = curCell;
             activeTile = blockMap.GetTile<Tile>(previous);
-            //activeTile.gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
+            blockMap.SetTile(curCell, null);
+            UpdateTileAtPos(curCell, blockMap);
+            transparentMap.SetTile(curCell, activeTile);
+            UpdateTileAtPos(curCell, transparentMap);
         }
 
         // Don't do anything when
@@ -67,16 +79,14 @@ public class BlockEditor : MonoBehaviour
             return;
         }
 
-        // Set the previous tile to nothing
-        blockMap.SetTile(previous, null);
-
         // Set the mouse position cell to selected tile
-        blockMap.SetTile(curCell, activeTile);
+        transparentMap.SetTile(previous, null);
+        transparentMap.SetTile(curCell, activeTile);
 
         if (previous != curCell)
         {
-            UpdateTileAtPos(previous);
-            UpdateTileAtPos(curCell);
+            UpdateTileAtPos(curCell, transparentMap);
+            UpdateTileAtPos(previous, transparentMap);
         }
 
         previous = curCell;
@@ -102,16 +112,79 @@ public class BlockEditor : MonoBehaviour
                 continue;
             }
 
-            // TODO: support custom probability
-            int randBlock = Random.Range(0, 2);
-            blockMap.SetTile(randCell, blockTiles[randBlock]);
+            // Generate based on custom probability
+            float probabilitySum = 0;
+            float randomNum = Random.value;
+            for (int j = 0; j < generationProbabilities.Count; j++)
+            {
+                if (randomNum >= probabilitySum && randomNum < probabilitySum + generationProbabilities[j])
+                {
+                    blockMap.SetTile(randCell, blockTiles[j]);
+                    break;
+                }
+                probabilitySum += generationProbabilities[j];
+            }
 
             // set wall below
             randCell.y--;
-            UpdateTileAtPos(randCell);
+            UpdateTileAtPos(randCell, blockMap);
         }
         // TODO: optimize performance
         AstarPath.active.Scan();
+    }
+
+    // update surrounding tiles at a given position
+    private void UpdateTileAtPos(Vector3Int pos, Tilemap tm)
+    {
+        Vector3Int above = pos;
+        Vector3Int below = pos;
+
+        above.y += 1;
+        below.y -= 1;
+
+        if (!tm.HasTile(pos) || !IsMovable(pos))
+        {
+            if (IsMovable(above))
+            {
+                Tile tileAbove = tm.GetTile<Tile>(above);
+                if (tileAbove != null && blockToWall.TryGetValue(tileAbove, out Tile tile))
+                {
+                    tm.SetTile(pos, tile);
+                }
+            }
+            if (tm.HasTile(below) && !IsMovable(below))
+            {
+                tm.SetTile(below, null);
+            }
+        }
+        if (tm.HasTile(pos) && !IsMovable(below))
+        {
+            Tile curTile = tm.GetTile<Tile>(pos);
+            if (blockToWall.ContainsKey(curTile))
+            {
+                tm.SetTile(below, blockToWall[curTile]);
+            }
+        }
+    }
+
+    // Check if cell below is a movable block
+    private bool BelowIsMovable(Vector3Int cur, out Vector3Int cellBelow)
+    {
+        cellBelow = cur;
+        cellBelow.y -= 1;
+
+        return IsMovable(cellBelow);
+    }
+
+    // Check if cell is a movable block
+    private bool IsMovable(Vector3Int cell)
+    {
+        if (!blockMap.HasTile(cell))
+        {
+            return false;
+        }
+        Tile tileBelow = blockMap.GetTile<Tile>(cell);
+        return movableTiles.Contains(tileBelow.name);
     }
 
     // Draw block walls
@@ -138,59 +211,5 @@ public class BlockEditor : MonoBehaviour
             }
         }
         AstarPath.active.Scan();
-    }
-
-    // update surrounding tiles at a given position
-    private void UpdateTileAtPos(Vector3Int pos)
-    {
-        Vector3Int above = pos;
-        Vector3Int below = pos;
-
-        above.y += 1;
-        below.y -= 1;
-
-        if (!blockMap.HasTile(pos))
-        {
-            if (IsMovable(above))
-            {
-                Tile tileAbove = blockMap.GetTile<Tile>(above);
-                if (blockToWall.ContainsKey(tileAbove))
-                {
-                    blockMap.SetTile(pos, blockToWall[tileAbove]);
-                }
-            }
-            if (!IsMovable(below))
-            {
-                blockMap.SetTile(below, null);
-            }
-        }
-        if (blockMap.HasTile(pos) && !IsMovable(below))
-        {
-            Tile curTile = blockMap.GetTile<Tile>(pos);
-            if (blockToWall.ContainsKey(curTile))
-            {
-                blockMap.SetTile(below, blockToWall[curTile]);
-            }
-        }
-    }
-
-    // Check if cell below is a movable block
-    private bool BelowIsMovable(Vector3Int cur, out Vector3Int cellBelow)
-    {
-        cellBelow = cur;
-        cellBelow.y -= 1;
-
-        return IsMovable(cellBelow);
-    }
-
-    // Check if cell is a movable block
-    private bool IsMovable(Vector3Int cell)
-    {
-        if (!blockMap.HasTile(cell))
-        {
-            return false;
-        }
-        Tile tileBelow = blockMap.GetTile<Tile>(cell);
-        return movableTiles.Contains(tileBelow.name);
     }
 }
