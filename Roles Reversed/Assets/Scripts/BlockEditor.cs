@@ -36,12 +36,6 @@ public class BlockEditor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // TODO: only generate when needed
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            GenerateBlocks();
-        }
-
         Vector3Int curCell = blockMap.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
         Tile curTile = blockMap.GetTile<Tile>(curCell);
 

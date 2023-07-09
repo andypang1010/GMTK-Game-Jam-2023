@@ -13,8 +13,7 @@ public class PlayerAttack : MonoBehaviour
     public LayerMask enemyLayerMask;
 
     private bool isAttacking = false;
-    private float lastAttackTime;
-    private Collider2D[] targets;
+    private Collider2D[] targets = new Collider2D[100];
 
     private void Start()
     {
@@ -27,29 +26,90 @@ public class PlayerAttack : MonoBehaviour
     private void Update()
     {
         if (Input.GetKey(KeyCode.Space)) {
-            lastAttackTime = Time.time;
             GameObject activeCollider = SetActiveCollider();
 
             // Use LayerMask to filter colliders
-            ContactFilter2D enemyFilter = new ContactFilter2D();
-            enemyFilter.useLayerMask = true;
-            enemyFilter.layerMask = enemyLayerMask;
+            ContactFilter2D enemyFilter = new ContactFilter2D
+            {
+                useLayerMask = true,
+                layerMask = enemyLayerMask
+            };
+
+            print(3);
 
             // Find all colliders in the active collider 
-            Physics2D.OverlapCollider(activeCollider.GetComponent<BoxCollider2D>(), enemyFilter, targets);
+            int x = Physics2D.OverlapCollider(activeCollider.GetComponentInChildren<BoxCollider2D>(), enemyFilter, targets);
+
+            AttackInDirection();
 
             foreach (Collider2D target in targets)
             {
-                if (target.TryGetComponent<Health>(out Health health))
+                if (target.gameObject.TryGetComponent(out Health health))
                 {
                     health.Attacked(attackStrength);
                 }
             }
         }
+    }
 
-        //target.GetComponent<Health>().Attacked(attackStrength);
+    // Attack animation coroutine
+    private IEnumerator Attack(Vector3 attackDir)
+    {
+        isAttacking = true;
+        float currentAngle = 0f;
+        float attackAngle = 180;
 
-        //isAttacking = false;
+        // Offset weapon angle
+        weapon.transform.up = attackDir;
+        weapon.transform.rotation =
+            weapon.transform.rotation * Quaternion.Euler(0, 0, attackAngle / 2);
+
+        float attackInterval = 1.0f / attackFrequency;
+
+        // Rotate the weapon while the sword is not at the target angle
+        for (float timer = 0; timer < attackInterval; timer += Time.deltaTime)
+        {
+            float targetAngle = Mathf.Lerp(
+                0,
+                -attackAngle,
+                Mathf.Pow(timer / attackInterval, 1.5f)
+            );
+            weapon.transform.rotation =
+                weapon.transform.rotation * Quaternion.Euler(0, 0, targetAngle - currentAngle);
+            currentAngle = targetAngle;
+            yield return null;
+        }
+
+        isAttacking = false;
+    }
+
+    private void AttackInDirection()
+    {
+        Vector3 dir;
+        if (Input.GetKey(KeyCode.W))
+        {
+            dir = Vector3.up;
+        }
+        else if (Input.GetKey(KeyCode.A))
+        {
+            dir = Vector3.left;
+        }
+        else if (Input.GetKey(KeyCode.S))
+        {
+            dir = Vector3.down;
+        }
+        else if (Input.GetKey(KeyCode.D))
+        {
+            dir = Vector3.right;
+        }
+        else
+        {
+            return;
+        }
+        if (Input.GetKey(KeyCode.Space) && !isAttacking)
+        {
+            StartCoroutine(Attack(dir));
+        }
     }
 
     // Set the active collider using W,A,S,D
