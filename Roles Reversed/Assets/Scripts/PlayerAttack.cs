@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class PlayerAttack : MonoBehaviour
 {
@@ -9,96 +10,74 @@ public class PlayerAttack : MonoBehaviour
     public GameObject weapon;
     public int attackStrength, attackFrequency;
     public float attackRadius;
-    public string opponentTag;
+    public LayerMask enemyLayerMask;
 
     private bool isAttacking = false;
-    private Collider2D[] W_Colliders, A_Colliders, S_Colliders, D_Colliders;
-    private List<GameObject> attackQueue = new List<GameObject>();
+    private float lastAttackTime;
+    private Collider2D[] targets;
 
-    private void Update()
+    private void Start()
     {
         W.transform.localScale = new Vector3(attackRadius, attackRadius);
         A.transform.localScale = new Vector3(attackRadius, attackRadius);
         S.transform.localScale = new Vector3(attackRadius, attackRadius);
         D.transform.localScale = new Vector3(attackRadius, attackRadius);
-
-        //W_Colliders = Physics2D.OverlapBoxAll()
-
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(gameObject.GetComponentInParent<Transform>().transform.position, attackRadius);
     }
 
-    // Add opponent to attack queue when entering attack radius
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void Update()
     {
-        if (collision.CompareTag(opponentTag))
-        {
-            attackQueue.Add(collision.gameObject);
+        if (Input.GetKey(KeyCode.Space)) {
+            lastAttackTime = Time.time;
+            GameObject activeCollider = SetActiveCollider();
+
+            // Use LayerMask to filter colliders
+            ContactFilter2D enemyFilter = new ContactFilter2D();
+            enemyFilter.useLayerMask = true;
+            enemyFilter.layerMask = enemyLayerMask;
+
+            // Find all colliders in the active collider 
+            Physics2D.OverlapCollider(activeCollider.GetComponent<BoxCollider2D>(), enemyFilter, targets);
+
+            foreach (Collider2D target in targets)
+            {
+                if (target.TryGetComponent<Health>(out Health health))
+                {
+                    health.Attacked(attackStrength);
+                }
+            }
         }
+
+        //target.GetComponent<Health>().Attacked(attackStrength);
+
+        //isAttacking = false;
     }
 
-    // Remove opponent from attack queue when exiting attack radius or becomes dead
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (attackQueue.Contains(collision.gameObject))
+    // Set the active collider using W,A,S,D
+    private GameObject SetActiveCollider() {
+        W.SetActive(false);
+        A.SetActive(false);
+        S.SetActive(false);
+        D.SetActive(false);
+
+        if (Input.GetKey(KeyCode.W))
         {
-            attackQueue.Remove(collision.gameObject);
+            W.SetActive(true);
+            return W;
         }
-    }
-
-    // Attack whenever an enemy is within radius
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.CompareTag(opponentTag) && !isAttacking)
+        else if (Input.GetKey(KeyCode.A))
         {
-            //print(attackQueue[0].ToString());
-            StartCoroutine(Attack(attackQueue[0]));
+            A.SetActive(true);
+            return A;
         }
-    }
-
-    // Attack animation coroutine
-    private IEnumerator Attack(GameObject target)
-    {
-        //print(target.ToString());
-        isAttacking = true;
-        float currentAngle = 0f;
-
-        // Offset weapon angle
-        weapon.transform.up = target.transform.position - transform.position;
-        weapon.transform.rotation =
-            weapon.transform.rotation * Quaternion.Euler(0, 0, attackAngle / 2);
-
-        float attackInterval = 1.0f / attackFrequency;
-
-        // Rotate the weapon while the sword is not at the target angle
-        for (float timer = 0; timer < attackInterval; timer += Time.deltaTime)
+        else if (Input.GetKey(KeyCode.S))
         {
-            float targetAngle = Mathf.Lerp(
-                0,
-                -attackAngle,
-                Mathf.Pow(timer / attackInterval, 1.5f)
-            );
-            weapon.transform.rotation =
-                weapon.transform.rotation * Quaternion.Euler(0, 0, targetAngle - currentAngle);
-            currentAngle = targetAngle;
-            yield return null;
+            S.SetActive(true);
+            return S;
         }
-
-        //if (target.TryGetComponent<Rigidbody2D>(out Rigidbody2D rb))
-        //{
-        //    rb.AddForce(target.transform.position - gameObject.transform.position);
-        //}
-
-        //if (opponentTag == "Player")
-        //{
-        //    target.GetComponent<PlayerHealth>().Attacked(attackStrength);
-        //}
-        //else if (opponentTag == "Enemy")
-        //{
-        //    target.GetComponent<PlayerHealth>().Attacked(attackStrength);
-        //}
-
-        target.GetComponent<Health>().Attacked(attackStrength);
-
-        isAttacking = false;
+        else if (Input.GetKey(KeyCode.D))
+        {
+            D.SetActive(true);
+        }
+        return D;
     }
 }

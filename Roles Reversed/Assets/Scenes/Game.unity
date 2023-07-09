@@ -934,11 +934,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &847395095 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6548499597710477095, guid: 948b060dc117c4b9ca56db3005c1aaf9, type: 3}
-  m_PrefabInstance: {fileID: 334996059}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &872673753 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5638877311399733636, guid: c284846fb9fc2bf4b97bb59ec51a8d74, type: 3}
@@ -1277,12 +1272,13 @@ MonoBehaviour:
   A: {fileID: 0}
   S: {fileID: 0}
   D: {fileID: 0}
-  weapon: {fileID: 847395095}
+  weapon: {fileID: 0}
   attackStrength: 2
-  attackFrequency: 5
-  attackAngle: 45
+  attackFrequency: 2
   attackRadius: 1.5
-  opponentTag: 
+  enemyLayerMask:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!1001 &6064703574030888346
 PrefabInstance:
   m_ObjectHideFlags: 0
