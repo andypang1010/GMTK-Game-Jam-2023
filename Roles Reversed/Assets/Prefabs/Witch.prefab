@@ -249,7 +249,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 800764685724930302, guid: 948b060dc117c4b9ca56db3005c1aaf9, type: 3}
-  proximityDetector: {fileID: 0}
   health: 4
   maxHealth: 4
   score: 5
@@ -264,16 +263,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 567201615189160668}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 061e5139e64873b4c81537aab3241cc2, type: 3}
+  m_Script: {fileID: 11500000, guid: ce59e5c4bdb0b4333bbb645cd2253121, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   sword: {fileID: 1427824496484414930}
   attackStrength: 2
-  attackFrequency: 5
+  attackFrequency: 2
   attackAngle: 45
   attackRadius: 1.5
   opponentTag: Player
-  attackCollider: {fileID: 4994005725532334345}
 --- !u!70 &334275059331292694
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
