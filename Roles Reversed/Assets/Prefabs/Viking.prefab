@@ -97,9 +97,9 @@ GameObject:
   - component: {fileID: 3019405352136252801}
   - component: {fileID: 5489687844378524853}
   - component: {fileID: 5956353199162637036}
-  - component: {fileID: 8491468593168806409}
   - component: {fileID: 334275059331292694}
-  - component: {fileID: 234429978468179568}
+  - component: {fileID: 5675270839163391646}
+  - component: {fileID: 5841542186559862152}
   m_Layer: 10
   m_Name: Viking
   m_TagString: Enemy
@@ -196,7 +196,7 @@ MonoBehaviour:
   radius: 0.38
   height: 2
   canMove: 1
-  maxSpeed: 1.5
+  maxSpeed: 0.9
   gravity: {x: NaN, y: NaN, z: NaN}
   groundMask:
     serializedVersion: 2
@@ -236,24 +236,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   target: {fileID: 3831935488098575267, guid: 948b060dc117c4b9ca56db3005c1aaf9, type: 3}
---- !u!114 &8491468593168806409
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 567201615189160668}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7897d28c3015b4de6856f60bdc5b3977, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 800764685724930302, guid: 948b060dc117c4b9ca56db3005c1aaf9, type: 3}
-  health: 4
-  maxHealth: 4
-  score: 5
-  bodyCollider: {fileID: 0}
-  playerAttack: {fileID: 0}
 --- !u!70 &334275059331292694
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -289,7 +271,7 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.4, y: 1.28}
   m_Direction: 0
---- !u!114 &234429978468179568
+--- !u!114 &5675270839163391646
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -298,13 +280,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 567201615189160668}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce59e5c4bdb0b4333bbb645cd2253121, type: 3}
+  m_Script: {fileID: 11500000, guid: f2e3577a429734d04bb1f50e9c5db9fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sword: {fileID: 1427824496484414930}
+  isPlayer: 0
+  health: 10
+  maxHealth: 10
+  score: 7
+--- !u!114 &5841542186559862152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 567201615189160668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e5702643f00d489793ea1d6c775cdca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapon: {fileID: 1427824496484414930}
   attackStrength: 2
-  attackFrequency: 2
-  attackAngle: 45
+  attackFrequency: 4
+  attackAngle: 60
   attackRadius: 1.5
   opponentTag: Player
 --- !u!1 &1427824496484414930
@@ -352,6 +350,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e5702643f00d489793ea1d6c775cdca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weapon: {fileID: 0}
+  attackStrength: 2
+  attackFrequency: 5
+  attackAngle: 45
+  attackRadius: 1.5
+  opponentTag: 
 --- !u!1 &5510236511523440081
 GameObject:
   m_ObjectHideFlags: 0
@@ -538,4 +542,4 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 3.5
+  m_Radius: 1

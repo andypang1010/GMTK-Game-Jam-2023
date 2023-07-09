@@ -2,23 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MeleeAttack : MonoBehaviour
+public class PlayerAttack : MonoBehaviour
 {
-    public GameObject sword;
-    public int attackStrength = 2;
-    public int attackFrequency = 5;
-    public float attackAngle = 45;
-    public float attackRadius = 1.5f;
+    public GameObject W, A, S, D;
+
+    public GameObject weapon;
+    public int attackStrength, attackFrequency;
+    public float attackRadius;
     public string opponentTag;
+
     private bool isAttacking = false;
-
-    private Vector2 pointerDirection;
-
+    private Collider2D[] W_Colliders, A_Colliders, S_Colliders, D_Colliders;
     private List<GameObject> attackQueue = new List<GameObject>();
 
     private void Update()
     {
-        Physics2D.OverlapAreaAll()
+        W.transform.localScale = new Vector3(attackRadius, attackRadius);
+        A.transform.localScale = new Vector3(attackRadius, attackRadius);
+        S.transform.localScale = new Vector3(attackRadius, attackRadius);
+        D.transform.localScale = new Vector3(attackRadius, attackRadius);
+
+        //W_Colliders = Physics2D.OverlapBoxAll()
+
         Collider2D[] colliders = Physics2D.OverlapCircleAll(gameObject.GetComponentInParent<Transform>().transform.position, attackRadius);
     }
 
@@ -58,9 +63,9 @@ public class MeleeAttack : MonoBehaviour
         float currentAngle = 0f;
 
         // Offset weapon angle
-        sword.transform.up = target.transform.position - transform.position;
-        sword.transform.rotation =
-            sword.transform.rotation * Quaternion.Euler(0, 0, attackAngle / 2);
+        weapon.transform.up = target.transform.position - transform.position;
+        weapon.transform.rotation =
+            weapon.transform.rotation * Quaternion.Euler(0, 0, attackAngle / 2);
 
         float attackInterval = 1.0f / attackFrequency;
 
@@ -72,8 +77,8 @@ public class MeleeAttack : MonoBehaviour
                 -attackAngle,
                 Mathf.Pow(timer / attackInterval, 1.5f)
             );
-            sword.transform.rotation =
-                sword.transform.rotation * Quaternion.Euler(0, 0, targetAngle - currentAngle);
+            weapon.transform.rotation =
+                weapon.transform.rotation * Quaternion.Euler(0, 0, targetAngle - currentAngle);
             currentAngle = targetAngle;
             yield return null;
         }
@@ -92,7 +97,6 @@ public class MeleeAttack : MonoBehaviour
         //    target.GetComponent<PlayerHealth>().Attacked(attackStrength);
         //}
 
-        print("Attacked with: " + attackStrength);
         target.GetComponent<Health>().Attacked(attackStrength);
 
         isAttacking = false;
