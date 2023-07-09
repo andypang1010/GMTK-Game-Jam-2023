@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3831935488098575267}
   - component: {fileID: 2664475258966893855}
   - component: {fileID: 2930384929953763904}
+  - component: {fileID: 5462017654100414927}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -31,7 +32,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8678682204806408223}
-  - {fileID: 4289518807550799149}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -132,6 +132,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &5462017654100414927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 800764685724930302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2e3577a429734d04bb1f50e9c5db9fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isTypeEnemy: 0
+  health: 5
+  maxHealth: 5
+  score: 0
 --- !u!1 &6350255026210809158
 GameObject:
   m_ObjectHideFlags: 0
@@ -143,6 +159,7 @@ GameObject:
   - component: {fileID: 9132204130616328154}
   - component: {fileID: 2700831950410237027}
   - component: {fileID: 4384077035102368110}
+  - component: {fileID: 6962544071065953596}
   m_Layer: 9
   m_Name: Collision
   m_TagString: PlayerWeapon
@@ -252,6 +269,24 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0.000000029802322}
   m_Size: {x: 1, y: 1}
   m_Direction: 0
+--- !u!114 &6962544071065953596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6350255026210809158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce59e5c4bdb0b4333bbb645cd2253121, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sword: {fileID: 6548499597710477095}
+  attackStrength: 2
+  attackFrequency: 5
+  attackAngle: 45
+  attackRadius: 1.5
+  opponentTag: Enemy
 --- !u!1 &6548499597710477095
 GameObject:
   m_ObjectHideFlags: 0
@@ -284,90 +319,3 @@ Transform:
   m_Father: {fileID: 3831935488098575267}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &6850603106702826132
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4289518807550799149}
-  - component: {fileID: 8861560885354351238}
-  - component: {fileID: 4765578002107312675}
-  m_Layer: 7
-  m_Name: Proximity Detector
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4289518807550799149
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6850603106702826132}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3831935488098575267}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &8861560885354351238
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6850603106702826132}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 3
---- !u!114 &4765578002107312675
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6850603106702826132}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 061e5139e64873b4c81537aab3241cc2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sword: {fileID: 6548499597710477095}
-  attackStrength: 2
-  attackFrequency: 1
-  attackAngle: 90
-  attackRadius: 2
-  opponentTag: Enemy
-  attackCollider: {fileID: 8861560885354351238}

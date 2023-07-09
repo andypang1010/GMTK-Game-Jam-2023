@@ -5,9 +5,12 @@ public class StatsManager : MonoBehaviour
 {
     public static StatsManager Instance { get; set; }
 
+    [HideInInspector]
     public string formattedTime;
-    public int score;
+
+    [HideInInspector]
     public int health;
+    public int score;
 
     private float timer;
 
