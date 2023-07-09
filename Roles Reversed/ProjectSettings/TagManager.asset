@@ -15,11 +15,11 @@ TagManager:
   - Water
   - UI
   - Obstacles
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Proximity Detection
+  - Player Body
+  - Player Weapon
+  - Enemy Body
+  - Enemy Weapon
   - 
   - 
   - 

@@ -3,6 +3,7 @@
 public class EnemyHealth : MonoBehaviour
 {
 	public GameObject player;
+	public GameObject proximityDetector;
 
 	LevelManager level;
 	StatsManager stats;
@@ -10,6 +11,8 @@ public class EnemyHealth : MonoBehaviour
 	public int health = 4;
 	public int maxHealth = 4;
 	public int score = 5;
+	public Collider2D bodyCollider;
+	public MeleeAttack playerAttack;
 
 	private int playerAttackStrength;
 	private float playerAttackInterval;
@@ -26,8 +29,8 @@ public class EnemyHealth : MonoBehaviour
 
     void Update()
 	{ 
-		playerAttackStrength = player.GetComponent<PlayerAttack>().attackStrength;
-		playerAttackInterval = 1.0f / player.GetComponent<PlayerAttack>().attackFrequency;
+		playerAttackStrength = player.GetComponent<MeleeAttack>().attackStrength;
+		playerAttackInterval = 1.0f / player.GetComponent<MeleeAttack>().attackFrequency;
 
 		// If no health left, edit stats in Game Manager and destroy current game object
 		if (health <= 0)

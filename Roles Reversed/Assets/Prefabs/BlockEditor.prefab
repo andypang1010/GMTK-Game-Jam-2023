@@ -51,10 +51,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b22534fbc64753547b11d7802fcc0f37, type: 2}
   - {fileID: 11400000, guid: da77426e0cda4c44ea127d6adcd90723, type: 2}
   blockMap: {fileID: 0}
+  transparentMap: {fileID: 0}
   movableTiles:
   - CrateDungeonKingdomSpaceship_0
   - Blue_0
   innerSpawnRadius: 5
-  outerSpawnRadius: 8
+  outerSpawnRadius: 7
   numberOfBlocks: 10
-  generationProbabilities: []
+  generationProbabilities:
+  - 0.3
+  - 0.7

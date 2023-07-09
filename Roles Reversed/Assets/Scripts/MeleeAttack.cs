@@ -2,22 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAttack : MonoBehaviour
+public class MeleeAttack : MonoBehaviour
 {
-    public CircleCollider2D proximityDetector;
     public GameObject sword;
     public int attackStrength = 2;
     public int attackFrequency = 5;
     public float attackAngle = 45;
     public float attackRadius = 1.5f;
+    public string opponentTag;
+    public CircleCollider2D attackCollider;
 
     private bool isAttacking = false;
     private List<GameObject> attackQueue = new List<GameObject>();
-    private CircleCollider2D attackCollider;
 
     void Start()
     {
-        attackCollider = GetComponent<CircleCollider2D>();
+        //attackCollider = GetComponent<CircleCollider2D>();
     }
 
     void Update()
@@ -28,7 +28,7 @@ public class PlayerAttack : MonoBehaviour
     // Add enemy to attack queue when entering attack radius
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Enemy"))
+        if (collision.CompareTag(opponentTag))
         {
             attackQueue.Add(collision.gameObject);
         }
@@ -46,7 +46,7 @@ public class PlayerAttack : MonoBehaviour
     // Attack whenever an enemy is within radius
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.CompareTag("Enemy") && !isAttacking)
+        if (collision.CompareTag(opponentTag) && !isAttacking)
         {
             StartCoroutine(Attack(attackQueue[0]));
         }
@@ -73,7 +73,10 @@ public class PlayerAttack : MonoBehaviour
             yield return null;
         }
 
-        target.GetComponent<Rigidbody2D>().AddForce(target.transform.position - gameObject.transform.position);
+        if (target.TryGetComponent<Rigidbody2D>(out Rigidbody2D rb))
+        {
+            rb.AddForce(target.transform.position - gameObject.transform.position);
+        }
         isAttacking = false;
     }
 }
