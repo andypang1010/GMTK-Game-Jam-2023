@@ -12,12 +12,15 @@ public class MeleeAttack : MonoBehaviour
     public string opponentTag;
     private bool isAttacking = false;
 
+    private Vector2 pointerDirection;
+
     private List<GameObject> attackQueue = new List<GameObject>();
 
-    //private void Update()
-    //{
-    //    Collider2D[] colliders = Physics2D.OverlapCircleAll()
-    //}
+    private void Update()
+    {
+        Physics2D.OverlapAreaAll()
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(gameObject.GetComponentInParent<Transform>().transform.position, attackRadius);
+    }
 
     // Add opponent to attack queue when entering attack radius
     private void OnTriggerEnter2D(Collider2D collision)
