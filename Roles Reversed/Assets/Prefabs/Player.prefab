@@ -33,7 +33,7 @@ Transform:
   m_Children:
   - {fileID: 8678682204806408223}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2664475258966893855
 SpriteRenderer:
@@ -144,7 +144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2e3577a429734d04bb1f50e9c5db9fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isTypeEnemy: 0
+  isPlayer: 1
   health: 5
   maxHealth: 5
   score: 0

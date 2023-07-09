@@ -23,7 +23,7 @@ public class UIManager : MonoBehaviour
                 gameHUD.SetActive(true);
 
                 scoreText.text = "Score: " + StatsManager.Instance.GetScore();
-                healthText.text = "♥ × " + StatsManager.Instance.GetHealth();
+                healthText.text = "Health: " + StatsManager.Instance.GetHealth();
 
                 break;
 

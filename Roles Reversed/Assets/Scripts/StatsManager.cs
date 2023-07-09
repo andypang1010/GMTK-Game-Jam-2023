@@ -30,8 +30,6 @@ public class StatsManager : MonoBehaviour
     {
         timer = 0f;
         score = 0;
-        health = 3;
-        Application.targetFrameRate = 60;
     }
 
     void Update()
@@ -43,7 +41,6 @@ public class StatsManager : MonoBehaviour
         if (health <= 0)
         {
             GameManager.Instance.SetGameStates(GameStates.Lost);
-            //print("GAME OVER!");
         }
     }
 
@@ -54,12 +51,6 @@ public class StatsManager : MonoBehaviour
         return formatted.ToString(@"hh\:mm\:ss");
     }
 
-    //void Attacked(int damage)
-    //{
-    //    health -= damage;
-
-    //}
-
     public int GetScore()
     {
         return score;
@@ -67,7 +58,7 @@ public class StatsManager : MonoBehaviour
 
     public void SetScore(int score)
     {
-        this.score += score;
+        this.score = score;
     }
 
     public int GetHealth()
@@ -77,6 +68,6 @@ public class StatsManager : MonoBehaviour
 
     public void SetHealth(int hp)
     {
-        this.score += hp;
+        this.health = hp;
     }
 }

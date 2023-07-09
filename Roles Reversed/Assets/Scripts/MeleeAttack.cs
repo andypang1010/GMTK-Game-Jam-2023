@@ -42,6 +42,7 @@ public class MeleeAttack : MonoBehaviour
     {
         if (collision.CompareTag(opponentTag) && !isAttacking)
         {
+            //print(attackQueue[0].ToString());
             StartCoroutine(Attack(attackQueue[0]));
         }
     }
@@ -49,6 +50,7 @@ public class MeleeAttack : MonoBehaviour
     // Attack animation coroutine
     private IEnumerator Attack(GameObject target)
     {
+        //print(target.ToString());
         isAttacking = true;
         float currentAngle = 0f;
 
@@ -78,6 +80,16 @@ public class MeleeAttack : MonoBehaviour
         //    rb.AddForce(target.transform.position - gameObject.transform.position);
         //}
 
+        //if (opponentTag == "Player")
+        //{
+        //    target.GetComponent<PlayerHealth>().Attacked(attackStrength);
+        //}
+        //else if (opponentTag == "Enemy")
+        //{
+        //    target.GetComponent<PlayerHealth>().Attacked(attackStrength);
+        //}
+
+        print("Attacked with: " + attackStrength);
         target.GetComponent<Health>().Attacked(attackStrength);
 
         isAttacking = false;

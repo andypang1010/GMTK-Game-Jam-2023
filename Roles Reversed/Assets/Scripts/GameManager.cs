@@ -39,14 +39,8 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameStates.InGame:
-                switch (lastGameState) {
-                    case GameStates.Pause:
-                        Time.timeScale = 1f;
-                        break;
-                    default:
-                        SceneManager.LoadScene("Game");
-                        break;
-                }
+                Time.timeScale = 1f;
+                SceneManager.LoadScene("Game");
                 break;
 
             case GameStates.Pause:
@@ -54,6 +48,7 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameStates.Lost:
+                Time.timeScale = 0f;
                 break;
 
         }

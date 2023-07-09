@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    public bool isTypeEnemy;
+    public bool isPlayer;
     public int health;
     public int maxHealth;
     public int score;
@@ -12,18 +10,21 @@ public class Health : MonoBehaviour
     void Start()
     {
         health = maxHealth;
+        if (isPlayer) {
+            StatsManager.Instance.SetHealth(maxHealth);
+        }
     }
 
     void Update()
     {
-        if (health <= 0) {
+        if (!isPlayer && health <= 0) {
             Dead();
         }
     }
 
     public void Attacked(int damage) {
         health -= damage;
-        if (!isTypeEnemy) {
+        if (isPlayer) {
             StatsManager.Instance.SetHealth(health);
         }
     }
@@ -36,16 +37,14 @@ public class Health : MonoBehaviour
             health = maxHealth;
         }
 
-        if (!isTypeEnemy) {
+        if (isPlayer) {
             StatsManager.Instance.SetHealth(health);
         }
     }
 
     void Dead() {
-        if (isTypeEnemy) {
-            LevelManager.Instance.DecrementEnemiesRemaining();
-            StatsManager.Instance.SetScore(score);
-            Destroy(gameObject);
-        }
+        LevelManager.Instance.DecrementEnemiesRemaining();
+        StatsManager.Instance.SetScore(StatsManager.Instance.GetScore() + score);
+        Destroy(gameObject);
     }
 }
