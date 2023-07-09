@@ -10,22 +10,16 @@ public class MeleeAttack : MonoBehaviour
     public float attackAngle = 45;
     public float attackRadius = 1.5f;
     public string opponentTag;
-    public CircleCollider2D attackCollider;
-
     private bool isAttacking = false;
+
     private List<GameObject> attackQueue = new List<GameObject>();
 
-    void Start()
-    {
-        //attackCollider = GetComponent<CircleCollider2D>();
-    }
+    //private void Update()
+    //{
+    //    Collider2D[] colliders = Physics2D.OverlapCircleAll()
+    //}
 
-    void Update()
-    {
-        attackCollider.radius = attackRadius;
-    }
-
-    // Add enemy to attack queue when entering attack radius
+    // Add opponent to attack queue when entering attack radius
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag(opponentTag))
@@ -34,7 +28,7 @@ public class MeleeAttack : MonoBehaviour
         }
     }
 
-    // Remove enemy from attack queue when exiting attack radius or becomes dead
+    // Remove opponent from attack queue when exiting attack radius or becomes dead
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (attackQueue.Contains(collision.gameObject))
@@ -58,25 +52,34 @@ public class MeleeAttack : MonoBehaviour
         isAttacking = true;
         float currentAngle = 0f;
 
-        // Offset sword angle
-        sword.transform.up = target.transform.position - sword.transform.position;
-        sword.transform.rotation = sword.transform.rotation * Quaternion.Euler(0, 0, attackAngle/2);
+        // Offset weapon angle
+        sword.transform.up = target.transform.position - transform.position;
+        sword.transform.rotation =
+            sword.transform.rotation * Quaternion.Euler(0, 0, attackAngle / 2);
 
         float attackInterval = 1.0f / attackFrequency;
 
-        // Rotate the sword while the sword is not at the target angle
+        // Rotate the weapon while the sword is not at the target angle
         for (float timer = 0; timer < attackInterval; timer += Time.deltaTime)
         {
-            float targetAngle = Mathf.Lerp(0, -attackAngle, Mathf.Pow(timer / attackInterval, 1.5f));
-            sword.transform.rotation = sword.transform.rotation * Quaternion.Euler(0, 0, targetAngle - currentAngle);
+            float targetAngle = Mathf.Lerp(
+                0,
+                -attackAngle,
+                Mathf.Pow(timer / attackInterval, 1.5f)
+            );
+            sword.transform.rotation =
+                sword.transform.rotation * Quaternion.Euler(0, 0, targetAngle - currentAngle);
             currentAngle = targetAngle;
             yield return null;
         }
 
-        if (target.TryGetComponent<Rigidbody2D>(out Rigidbody2D rb))
-        {
-            rb.AddForce(target.transform.position - gameObject.transform.position);
-        }
+        //if (target.TryGetComponent<Rigidbody2D>(out Rigidbody2D rb))
+        //{
+        //    rb.AddForce(target.transform.position - gameObject.transform.position);
+        //}
+
+        target.GetComponent<Health>().Attacked(attackStrength);
+
         isAttacking = false;
     }
 }

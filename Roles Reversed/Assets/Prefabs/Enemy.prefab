@@ -98,8 +98,8 @@ GameObject:
   - component: {fileID: 3019405352136252801}
   - component: {fileID: 5489687844378524853}
   - component: {fileID: 5956353199162637036}
-  - component: {fileID: 8491468593168806409}
-  - component: {fileID: -5777226040658524809}
+  - component: {fileID: 4590991763659171346}
+  - component: {fileID: 3437201090738785430}
   m_Layer: 10
   m_Name: Enemy
   m_TagString: Enemy
@@ -281,7 +281,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   target: {fileID: 3831935488098575267, guid: 948b060dc117c4b9ca56db3005c1aaf9, type: 3}
---- !u!114 &8491468593168806409
+--- !u!114 &4590991763659171346
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -290,24 +290,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 567201615189160668}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7897d28c3015b4de6856f60bdc5b3977, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 800764685724930302, guid: 948b060dc117c4b9ca56db3005c1aaf9, type: 3}
-  health: 4
-  maxHealth: 4
-  score: 5
-  bodyCollider: {fileID: 0}
---- !u!114 &-5777226040658524809
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 567201615189160668}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 061e5139e64873b4c81537aab3241cc2, type: 3}
+  m_Script: {fileID: 11500000, guid: ce59e5c4bdb0b4333bbb645cd2253121, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   sword: {fileID: 1427824496484414930}
@@ -316,7 +299,22 @@ MonoBehaviour:
   attackAngle: 45
   attackRadius: 1.5
   opponentTag: Player
-  attackCollider: {fileID: 4994005725532334345}
+--- !u!114 &3437201090738785430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 567201615189160668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2e3577a429734d04bb1f50e9c5db9fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isTypeEnemy: 1
+  health: 4
+  maxHealth: 4
+  score: 5
 --- !u!1 &1427824496484414930
 GameObject:
   m_ObjectHideFlags: 0

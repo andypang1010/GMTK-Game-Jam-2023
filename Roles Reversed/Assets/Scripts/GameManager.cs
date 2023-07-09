@@ -6,8 +6,9 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance;
 
-    public int frameRate = 60;
     public GameStates gameState;
+
+    public int frameRate = 60;
 
     private void Awake()
     {
