@@ -5,9 +5,11 @@ public class StatsManager : MonoBehaviour
 {
     public static StatsManager Instance { get; set; }
 
-    private float timer;
+    public string formattedTime;
     public int score;
     public int health;
+
+    private float timer;
 
     private void Awake()
     {
@@ -33,8 +35,13 @@ public class StatsManager : MonoBehaviour
     {
         // Timer increments by Time.deltaTime
         timer += Time.deltaTime;
-        //print(FormatTime(timer));
-        //print("Score: " + score);
+        formattedTime = FormatTime(timer);
+
+        if (health <= 0)
+        {
+            GameManager.Instance.SetGameStates(GameStates.Lost);
+            //print("GAME OVER!");
+        }
     }
 
     // Format time from seconds to hh:mm:ss format
@@ -44,14 +51,11 @@ public class StatsManager : MonoBehaviour
         return formatted.ToString(@"hh\:mm\:ss");
     }
 
-    void Attacked(int damage)
-    {
-        health -= damage;
-        if (health <= 0)
-        {
-            print("GAME OVER!");
-        }
-    }
+    //void Attacked(int damage)
+    //{
+    //    health -= damage;
+
+    //}
 
     public int GetScore()
     {
@@ -61,5 +65,15 @@ public class StatsManager : MonoBehaviour
     public void SetScore(int score)
     {
         this.score += score;
+    }
+
+    public int GetHealth()
+    {
+        return health;
+    }
+
+    public void SetHealth(int hp)
+    {
+        this.score += hp;
     }
 }

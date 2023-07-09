@@ -90,6 +90,11 @@ public class LevelManager : MonoBehaviour
         numEnemiesSpawned += numEnemiesInGroup;
     }
 
+    public int GetWave()
+    {
+        return wave;
+    }
+
     public int GetNumEnemiesRemaining()
     {
         return numEnemiesRemaining;

@@ -1,14 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class ButtonUI : MonoBehaviour
 {
-    private string gameScene = "Game";
-
-    public void StartButton()
+    public void GameButton()
     {
-        SceneManager.LoadScene(gameScene);
+        GameManager.Instance.SetGameStates(GameStates.InGame);
+    }
+
+    public void PauseButton()
+    {
+        GameManager.Instance.SetGameStates(GameStates.Pause);
+    }
+
+    public void MainMenuButton()
+    {
+        GameManager.Instance.SetGameStates(GameStates.MainMenu);
     }
 }
