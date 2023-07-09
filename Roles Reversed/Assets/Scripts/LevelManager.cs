@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour
@@ -5,7 +7,7 @@ public class LevelManager : MonoBehaviour
     public static LevelManager Instance { get; set; }
 
     public GameObject Player;
-    public GameObject Enemy;
+    public List<GameObject> Enemies;
 
     public int wave;
     public int numEnemiesRemaining;
@@ -85,7 +87,8 @@ public class LevelManager : MonoBehaviour
         {
             int spawnAngle = UnityEngine.Random.Range(0, 360);
             Vector2 spawnPosition = Player.transform.position + new Vector3(enemySpawnRadius * Mathf.Cos(spawnAngle), enemySpawnRadius * Mathf.Sin(spawnAngle), 0);
-            Instantiate(Enemy, spawnPosition, new Quaternion(0, 0, 0, 0));
+            int randomEnemy = Random.Range(0, Enemies.Count);
+            Instantiate(Enemies[randomEnemy], spawnPosition, new Quaternion(0, 0, 0, 0));
         }
         numEnemiesSpawned += numEnemiesInGroup;
     }

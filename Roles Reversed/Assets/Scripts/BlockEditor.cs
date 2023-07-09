@@ -30,6 +30,7 @@ public class BlockEditor : MonoBehaviour
         {
             blockToWall.Add(blockTiles[i], wallTiles[i]);
         }
+        GenerateBlocks();
     }
 
     // Update is called once per frame
