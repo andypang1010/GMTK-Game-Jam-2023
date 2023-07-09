@@ -59,7 +59,7 @@ public class MeleeAttack : MonoBehaviour
         float currentAngle = 0f;
 
         // Offset sword angle
-        sword.transform.up = target.transform.position - transform.position;
+        sword.transform.up = target.transform.position - sword.transform.position;
         sword.transform.rotation = sword.transform.rotation * Quaternion.Euler(0, 0, attackAngle/2);
 
         float attackInterval = 1.0f / attackFrequency;
