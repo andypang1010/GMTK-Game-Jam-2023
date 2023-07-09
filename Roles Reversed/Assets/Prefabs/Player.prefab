@@ -36,7 +36,7 @@ Transform:
   - {fileID: 6915147274576410897}
   - {fileID: 7199772429380010223}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &2930384929953763904
 BoxCollider2D:
@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 5721345640233007889}
   - component: {fileID: 791447600582657189}
   - component: {fileID: 4496724764733140599}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: A-Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -238,7 +238,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6915147274576410897}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -272,7 +272,7 @@ GameObject:
   - component: {fileID: 6780035501479081975}
   - component: {fileID: 4758036165969710846}
   - component: {fileID: 8057296454895000429}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: W-Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -402,7 +402,7 @@ GameObject:
   - component: {fileID: 6200045019884039289}
   - component: {fileID: 4515424162207925128}
   - component: {fileID: 1113889388754914316}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: S-Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -532,7 +532,7 @@ GameObject:
   - component: {fileID: 1038281982046753132}
   - component: {fileID: 1222569670067362730}
   - component: {fileID: 8796881831481339381}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: D-Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -660,7 +660,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1275505105120390346}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: A
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -692,7 +692,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9103633149426579431}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: W
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -726,6 +726,7 @@ GameObject:
   - component: {fileID: 9132204130616328154}
   - component: {fileID: 2700831950410237027}
   - component: {fileID: 4384077035102368110}
+  - component: {fileID: 2673036379584881358}
   m_Layer: 9
   m_Name: Collision
   m_TagString: PlayerWeapon
@@ -835,6 +836,29 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0.000000029802322}
   m_Size: {x: 1, y: 1}
   m_Direction: 0
+--- !u!114 &2673036379584881358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6350255026210809158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce59e5c4bdb0b4333bbb645cd2253121, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  W: {fileID: 6039723129087290548}
+  A: {fileID: 5330229831338836469}
+  S: {fileID: 1944057759150908525}
+  D: {fileID: 8172463187642885985}
+  weapon: {fileID: 6548499597710477095}
+  attackStrength: 1
+  attackFrequency: 1
+  attackRadius: 1
+  enemyLayerMask:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!1 &6548499597710477095
 GameObject:
   m_ObjectHideFlags: 0
@@ -876,7 +900,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7199772429380010223}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: D
   m_TagString: Untagged
   m_Icon: {fileID: 0}

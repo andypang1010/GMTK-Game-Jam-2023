@@ -38,7 +38,7 @@ public class PlayerAttack : MonoBehaviour
             print(3);
 
             // Find all colliders in the active collider 
-            int x = Physics2D.OverlapCollider(activeCollider.GetComponentInChildren<BoxCollider2D>(), enemyFilter, targets);
+            Physics2D.OverlapCollider(activeCollider.GetComponentInChildren<BoxCollider2D>(), enemyFilter, targets);
 
             AttackInDirection();
 
@@ -81,6 +81,14 @@ public class PlayerAttack : MonoBehaviour
         }
 
         isAttacking = false;
+
+        foreach (Collider2D target in targets)
+        {
+            if (target.gameObject.TryGetComponent(out Health health))
+            {
+                health.Attacked(attackStrength);
+            }
+        }
     }
 
     private void AttackInDirection()

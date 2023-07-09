@@ -21,6 +21,7 @@ public class BlockEditor : MonoBehaviour
     private Tile activeTile;
     private Vector3Int previous;
     private Dictionary<Tile, Tile> blockToWall = new Dictionary<Tile, Tile>();
+    private float lastScanTime = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -36,6 +37,11 @@ public class BlockEditor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Time.time > lastScanTime + 2) {
+            lastScanTime = Time.time;
+            AstarPath.active.Scan();
+        }
+
         Vector3Int curCell = blockMap.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
         Tile curTile = blockMap.GetTile<Tile>(curCell);
 
@@ -124,6 +130,7 @@ public class BlockEditor : MonoBehaviour
             randCell.y--;
             UpdateTileAtPos(randCell, blockMap);
         }
+
         // TODO: optimize performance
         AstarPath.active.Scan();
     }

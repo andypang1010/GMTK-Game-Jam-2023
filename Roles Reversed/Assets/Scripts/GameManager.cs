@@ -40,7 +40,13 @@ public class GameManager : MonoBehaviour
 
             case GameStates.InGame:
                 Time.timeScale = 1f;
-                SceneManager.LoadScene("Game");
+                switch (lastGameState) {
+                    case GameStates.Pause:
+                        break;
+                    default:
+                        SceneManager.LoadScene("Game");
+                        break;
+                }
                 break;
 
             case GameStates.Pause:
