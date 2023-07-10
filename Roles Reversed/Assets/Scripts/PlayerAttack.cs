@@ -21,6 +21,11 @@ public class PlayerAttack : MonoBehaviour
         A.transform.localScale = new Vector3(attackRadius, attackRadius);
         S.transform.localScale = new Vector3(attackRadius, attackRadius);
         D.transform.localScale = new Vector3(attackRadius, attackRadius);
+
+        W.SetActive(false);
+        A.SetActive(false);
+        S.SetActive(false);
+        D.SetActive(false);
     }
 
     private void Update()
@@ -35,20 +40,10 @@ public class PlayerAttack : MonoBehaviour
                 layerMask = enemyLayerMask
             };
 
-            print(3);
-
             // Find all colliders in the active collider 
             Physics2D.OverlapCollider(activeCollider.GetComponentInChildren<BoxCollider2D>(), enemyFilter, targets);
 
             AttackInDirection();
-
-            foreach (Collider2D target in targets)
-            {
-                if (target.gameObject.TryGetComponent(out Health health))
-                {
-                    health.Attacked(attackStrength);
-                }
-            }
         }
     }
 

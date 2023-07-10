@@ -7,11 +7,18 @@ public class Health : MonoBehaviour
     public int maxHealth;
     public int score;
 
+    public AudioClip hit;
+
+    private AudioSource source;
+
     void Start()
     {
         health = maxHealth;
         if (isPlayer) {
             StatsManager.Instance.SetHealth(maxHealth);
+        }
+        else {
+            source = GetComponent<AudioSource>();
         }
     }
 
@@ -26,6 +33,9 @@ public class Health : MonoBehaviour
         health -= damage;
         if (isPlayer) {
             StatsManager.Instance.SetHealth(health);
+        }
+        else {
+            source.PlayOneShot(hit);
         }
     }
 

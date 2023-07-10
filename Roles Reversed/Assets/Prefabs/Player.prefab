@@ -36,7 +36,7 @@ Transform:
   - {fileID: 6915147274576410897}
   - {fileID: 7199772429380010223}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &2930384929953763904
 BoxCollider2D:
@@ -853,8 +853,8 @@ MonoBehaviour:
   S: {fileID: 1944057759150908525}
   D: {fileID: 8172463187642885985}
   weapon: {fileID: 6548499597710477095}
-  attackStrength: 1
-  attackFrequency: 1
+  attackStrength: 2
+  attackFrequency: 2
   attackRadius: 1
   enemyLayerMask:
     serializedVersion: 2

@@ -8,17 +8,15 @@ public class EnemyAttack : MonoBehaviour
     public int attackStrength;
     public float attackFrequency;
     public float attackAngle;
-    public float attackRadius;
-    public string opponentTag;
-    private bool isAttacking = false;
+    public LayerMask playerLayer;
 
+    private bool isAttacking = false;
     private List<GameObject> attackQueue = new List<GameObject>();
 
     // Add opponent to attack queue when entering attack radius
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag(opponentTag))
-        {
+        if (CompareLayer(playerLayer, collision)) {
             attackQueue.Add(collision.gameObject);
         }
     }
@@ -35,7 +33,7 @@ public class EnemyAttack : MonoBehaviour
     // Attack whenever an enemy is within radius
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.CompareTag(opponentTag) && !isAttacking)
+        if (CompareLayer(playerLayer, collision) && !isAttacking)
         {
             //print(attackQueue[0].ToString());
             StartCoroutine(Attack(attackQueue[0]));
@@ -73,5 +71,9 @@ public class EnemyAttack : MonoBehaviour
         target.GetComponent<Health>().Attacked(attackStrength);
 
         isAttacking = false;
+    }
+
+    private bool CompareLayer(LayerMask layer, Collider2D collider) {
+        return (layer & 1 << collider.gameObject.layer) == 1 << collider.gameObject.layer;
     }
 }
