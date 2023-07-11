@@ -45,11 +45,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 800764685724930302, guid: 948b060dc117c4b9ca56db3005c1aaf9, type: 3}
-  Enemy: {fileID: 567201615189160668, guid: 3a0fdd7efa281495ab44d89054f90273, type: 3}
-  numEnemiesRemaining: 0
+  Enemies:
+  - {fileID: 567201615189160668, guid: 33fe96da061d6cc4b824af6598ee3c6e, type: 3}
+  - {fileID: 567201615189160668, guid: d713927b10c36244495c2256ae812fe9, type: 3}
+  - {fileID: 567201615189160668, guid: 8c0c986d2c601e24aa1d332c0fac4d2b, type: 3}
+  - {fileID: 567201615189160668, guid: 598d3c6d7caf8f24eb61ce6b6d608c21, type: 3}
+  - {fileID: 567201615189160668, guid: 5c77fe4c681d0834a89f4c7a80c709c6, type: 3}
+  minEnemyScore: 3
   wave: 0
+  numEnemiesRemaining: 0
   minNumEnemies: 3
-  maxNumEnemies: 7
+  maxNumEnemies: 5
   enemySpawnRadius: 7
   minGroupSpawnInterval: 3
   maxGroupSpawnInterval: 5

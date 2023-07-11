@@ -498,38 +498,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 215483449}
     m_Modifications:
-    - target: {fileID: 1096375373371622007, guid: 2974cbddc1498457585798336a0e5e57, type: 3}
-      propertyPath: Camera
-      value: 
-      objectReference: {fileID: 8172529713775900205}
-    - target: {fileID: 1096375373371622007, guid: 2974cbddc1498457585798336a0e5e57, type: 3}
-      propertyPath: maxNumEnemies
-      value: 5
+    - target: {fileID: 5599641988941652343, guid: 2974cbddc1498457585798336a0e5e57, type: 3}
+      propertyPath: m_Name
+      value: Level Manager
       objectReference: {fileID: 0}
-    - target: {fileID: 1096375373371622007, guid: 2974cbddc1498457585798336a0e5e57, type: 3}
-      propertyPath: Enemies.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1096375373371622007, guid: 2974cbddc1498457585798336a0e5e57, type: 3}
-      propertyPath: Enemies.Array.data[0]
-      value: 
-      objectReference: {fileID: 567201615189160668, guid: 33fe96da061d6cc4b824af6598ee3c6e, type: 3}
-    - target: {fileID: 1096375373371622007, guid: 2974cbddc1498457585798336a0e5e57, type: 3}
-      propertyPath: Enemies.Array.data[1]
-      value: 
-      objectReference: {fileID: 567201615189160668, guid: d713927b10c36244495c2256ae812fe9, type: 3}
-    - target: {fileID: 1096375373371622007, guid: 2974cbddc1498457585798336a0e5e57, type: 3}
-      propertyPath: Enemies.Array.data[2]
-      value: 
-      objectReference: {fileID: 567201615189160668, guid: 8c0c986d2c601e24aa1d332c0fac4d2b, type: 3}
-    - target: {fileID: 1096375373371622007, guid: 2974cbddc1498457585798336a0e5e57, type: 3}
-      propertyPath: Enemies.Array.data[3]
-      value: 
-      objectReference: {fileID: 567201615189160668, guid: 598d3c6d7caf8f24eb61ce6b6d608c21, type: 3}
-    - target: {fileID: 1096375373371622007, guid: 2974cbddc1498457585798336a0e5e57, type: 3}
-      propertyPath: Enemies.Array.data[4]
-      value: 
-      objectReference: {fileID: 567201615189160668, guid: 5c77fe4c681d0834a89f4c7a80c709c6, type: 3}
     - target: {fileID: 6902215634334819127, guid: 2974cbddc1498457585798336a0e5e57, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -573,38 +545,6 @@ PrefabInstance:
     - target: {fileID: 6902215634334819127, guid: 2974cbddc1498457585798336a0e5e57, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2643708355521311699, guid: 6bab9a5f368babf4786a8b6f6858c2e7, type: 3}
-      propertyPath: Enemy
-      value: 
-      objectReference: {fileID: 567201615189160668, guid: 598d3c6d7caf8f24eb61ce6b6d608c21, type: 3}
-    - target: {fileID: 2643708355521311699, guid: 6bab9a5f368babf4786a8b6f6858c2e7, type: 3}
-      propertyPath: Enemies.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2643708355521311699, guid: 6bab9a5f368babf4786a8b6f6858c2e7, type: 3}
-      propertyPath: Enemies.Array.data[0]
-      value: 
-      objectReference: {fileID: 567201615189160668, guid: 33fe96da061d6cc4b824af6598ee3c6e, type: 3}
-    - target: {fileID: 2643708355521311699, guid: 6bab9a5f368babf4786a8b6f6858c2e7, type: 3}
-      propertyPath: Enemies.Array.data[1]
-      value: 
-      objectReference: {fileID: 567201615189160668, guid: 598d3c6d7caf8f24eb61ce6b6d608c21, type: 3}
-    - target: {fileID: 2643708355521311699, guid: 6bab9a5f368babf4786a8b6f6858c2e7, type: 3}
-      propertyPath: Enemies.Array.data[2]
-      value: 
-      objectReference: {fileID: 567201615189160668, guid: 8c0c986d2c601e24aa1d332c0fac4d2b, type: 3}
-    - target: {fileID: 2643708355521311699, guid: 6bab9a5f368babf4786a8b6f6858c2e7, type: 3}
-      propertyPath: Enemies.Array.data[3]
-      value: 
-      objectReference: {fileID: 567201615189160668, guid: d713927b10c36244495c2256ae812fe9, type: 3}
-    - target: {fileID: 2643708355521311699, guid: 6bab9a5f368babf4786a8b6f6858c2e7, type: 3}
-      propertyPath: Enemies.Array.data[4]
-      value: 
-      objectReference: {fileID: 567201615189160668, guid: 5c77fe4c681d0834a89f4c7a80c709c6, type: 3}
-    - target: {fileID: 4351374259619195958, guid: 6bab9a5f368babf4786a8b6f6858c2e7, type: 3}
-      propertyPath: m_Name
-      value: Level Manager
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1339,8 +1279,3 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 566cfcbbb89cb438d86160eb69ad304c, type: 3}
---- !u!20 &8172529713775900205 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 187748822695906957, guid: 566cfcbbb89cb438d86160eb69ad304c, type: 3}
-  m_PrefabInstance: {fileID: 8172529713775900204}
-  m_PrefabAsset: {fileID: 0}

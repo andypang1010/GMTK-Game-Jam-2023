@@ -285,7 +285,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthPopup: {fileID: 7465214950022707962, guid: 8a9fe5a59f79b48de9b3448221a8ffe0, type: 3}
-  popupOffset: {x: 0, y: -0.8, z: 0}
   hitAudio: {fileID: 8300000, guid: cf4b7e0e061a6420ab965feac5cd087a, type: 3}
   isPlayer: 0
   health: 5
@@ -307,7 +306,7 @@ MonoBehaviour:
   attackStrength: 1
   attackFrequency: 1
   attackAngle: 45
-  playerLayer:
+  targetLayer:
     serializedVersion: 2
     m_Bits: 256
 --- !u!82 &5087976012841556304
@@ -455,7 +454,7 @@ MonoBehaviour:
   attackStrength: 1
   attackFrequency: 1
   attackAngle: 40
-  playerLayer:
+  targetLayer:
     serializedVersion: 2
     m_Bits: 0
 --- !u!1 &5510236511523440081

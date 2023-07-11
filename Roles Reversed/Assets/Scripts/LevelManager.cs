@@ -6,22 +6,19 @@ public class LevelManager : MonoBehaviour
 {
     public static LevelManager Instance { get; set; }
 
+    [Header("Characters")]
     public GameObject Player;
+    public int minEnemyScore;
     public List<GameObject> Enemies;
 
+    [Header("Wave")]
     public int wave;
     public int numEnemiesRemaining;
-
-    [SerializeField]
-    private int minNumEnemies = 3;
-    [SerializeField]
-    private int maxNumEnemies = 7;
-    [SerializeField]
-    private int enemySpawnRadius = 15;
-    [SerializeField]
-    private int minGroupSpawnInterval = 3;
-    [SerializeField]
-    private int maxGroupSpawnInterval = 10;
+    public int minNumEnemies;
+    public int maxNumEnemies;
+    public int enemySpawnRadius;
+    public int minGroupSpawnInterval;
+    public int maxGroupSpawnInterval;
 
     private int numEnemiesInWave;
     private int numEnemiesInGroup;
@@ -87,7 +84,13 @@ public class LevelManager : MonoBehaviour
         {
             int spawnAngle = UnityEngine.Random.Range(0, 360);
             Vector2 spawnPosition = Player.transform.position + new Vector3(enemySpawnRadius * Mathf.Cos(spawnAngle), enemySpawnRadius * Mathf.Sin(spawnAngle), 0);
-            int randomEnemy = Random.Range(0, Enemies.Count);
+
+            // Randomly select enemies that can be spawned based on their score
+            int randomEnemy;
+            do
+            {
+                randomEnemy = Random.Range(0, Enemies.Count);
+            } while (Enemies[randomEnemy].GetComponent<Health>().score / minEnemyScore > LevelManager.Instance.GetWave());
             Instantiate(Enemies[randomEnemy], spawnPosition, new Quaternion(0, 0, 0, 0));
         }
         numEnemiesSpawned += numEnemiesInGroup;

@@ -289,7 +289,7 @@ MonoBehaviour:
   isPlayer: 0
   health: 5
   maxHealth: 5
-  score: 10
+  score: 24
 --- !u!114 &3487549720833816818
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -306,7 +306,7 @@ MonoBehaviour:
   attackStrength: 3
   attackFrequency: 1.5
   attackAngle: 30
-  playerLayer:
+  targetLayer:
     serializedVersion: 2
     m_Bits: 256
 --- !u!82 &3001428567194614885

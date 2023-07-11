@@ -37,6 +37,7 @@ public class BlockEditor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Scan for path every 2 seconds
         if (Time.time > lastScanTime + 2) {
             lastScanTime = Time.time;
             AstarPath.active.Scan();

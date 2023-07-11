@@ -12,10 +12,12 @@ public class Health : MonoBehaviour
     public int score;
 
     private AudioSource source;
+    private int lastWave;
 
     void Start()
     {
         health = maxHealth;
+        lastWave = LevelManager.Instance.GetWave();
         if (isPlayer) {
             StatsManager.Instance.SetHealth(maxHealth);
         }
@@ -28,6 +30,10 @@ public class Health : MonoBehaviour
     {
         if (!isPlayer && health <= 0) {
             Dead();
+        }
+        else if (isPlayer && health > 0 && LevelManager.Instance.GetWave() - lastWave > 0) {
+            Healed(1);
+            lastWave = LevelManager.Instance.GetWave();
         }
     }
 
