@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1273742411925510186
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 518120320654910418}
+  - component: {fileID: 5907837972519327000}
+  m_Layer: 0
+  m_Name: BlockEditor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &518120320654910418
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1273742411925510186}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5907837972519327000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1273742411925510186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8170d7e929be4640aa77c2b5bd6bc99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blockTiles:
+  - {fileID: 11400000, guid: a7728cd9fc300d04f971e6b80e53a087, type: 2}
+  - {fileID: 11400000, guid: 57bb2be5b07198c42914c36a2fe35283, type: 2}
+  - {fileID: 11400000, guid: fabffd13b4804d64a8e0e976aad323a9, type: 2}
+  - {fileID: 11400000, guid: baa3d0651cd879b44ba14f05f22c1c0e, type: 2}
+  - {fileID: 11400000, guid: c5653bbd84147eb46811b8c734379456, type: 2}
+  wallTiles: []
+  blockMap: {fileID: 0}
+  transparentMap: {fileID: 0}
+  movableTiles:
+  - Blocks_1
+  - Blocks_5
+  - Blocks_6
+  - Blocks_7
+  - Blocks_8
+  innerSpawnRadius: 2
+  outerSpawnRadius: 5
+  numberOfBlocks: 10
+  generationProbabilities:
+  - 0.2
+  - 0.2
+  - 0.2
+  - 0.2
+  - 0.2
