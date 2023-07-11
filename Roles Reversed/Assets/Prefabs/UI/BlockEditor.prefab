@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5907837972519327000
 MonoBehaviour:
@@ -45,46 +45,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockTiles:
-  - {fileID: 11400000, guid: 259bf58f857da8249bd501d3f6de9788, type: 2}
-  - {fileID: 11400000, guid: 0caab0d94838c5d42a202166966aa32b, type: 2}
-  - {fileID: 11400000, guid: 60ce8d0add0916d499539dfe798f4607, type: 2}
   - {fileID: 11400000, guid: a7728cd9fc300d04f971e6b80e53a087, type: 2}
-  - {fileID: 11400000, guid: 4cab930e9041f8848b120e7731d557c6, type: 2}
-  - {fileID: 11400000, guid: 33594ac3bd4edda4693721c31d154646, type: 2}
-  - {fileID: 11400000, guid: 2478360c1ba889343be069e89707d3bd, type: 2}
   - {fileID: 11400000, guid: 57bb2be5b07198c42914c36a2fe35283, type: 2}
   - {fileID: 11400000, guid: fabffd13b4804d64a8e0e976aad323a9, type: 2}
   - {fileID: 11400000, guid: baa3d0651cd879b44ba14f05f22c1c0e, type: 2}
   - {fileID: 11400000, guid: c5653bbd84147eb46811b8c734379456, type: 2}
-  wallTiles:
-  - {fileID: 11400000, guid: b22534fbc64753547b11d7802fcc0f37, type: 2}
-  - {fileID: 11400000, guid: da77426e0cda4c44ea127d6adcd90723, type: 2}
+  wallTiles: []
   blockMap: {fileID: 0}
   transparentMap: {fileID: 0}
   movableTiles:
-  - CrateDungeonKingdomSpaceship_0
-  - Blue_0
-  - Blocks_0
   - Blocks_1
-  - Blocks_2
-  - Blocks_3
-  - Blocks_4
   - Blocks_5
   - Blocks_6
   - Blocks_7
   - Blocks_8
-  innerSpawnRadius: 5
-  outerSpawnRadius: 7
+  innerSpawnRadius: 2
+  outerSpawnRadius: 5
   numberOfBlocks: 10
   generationProbabilities:
-  - 0.05
-  - 0.05
-  - 0.1
-  - 0.1
-  - 0.1
-  - 0.1
-  - 0.1
-  - 0.1
-  - 0.1
-  - 0.1
-  - 0.1
+  - 0.2
+  - 0.2
+  - 0.2
+  - 0.2
+  - 0.2

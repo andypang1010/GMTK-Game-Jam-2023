@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 473046941873282652}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
+  m_LocalScale: {x: 0.27, y: 0.27, z: 0.27}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 124942767553629193}
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: -560583038, guid: 89622685a41174446b2943796965d8d6, type: 3}
+  m_Sprite: {fileID: 1726220707, guid: 89622685a41174446b2943796965d8d6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -98,11 +98,11 @@ GameObject:
   - component: {fileID: 5489687844378524853}
   - component: {fileID: 5956353199162637036}
   - component: {fileID: 334275059331292694}
-  - component: {fileID: 6397528553714221590}
-  - component: {fileID: 3487549720833816818}
-  - component: {fileID: 3001428567194614885}
+  - component: {fileID: 5675270839163391646}
+  - component: {fileID: 5841542186559862152}
+  - component: {fileID: 9064359702380637592}
   m_Layer: 10
-  m_Name: Dracula
+  m_Name: Viking
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -117,7 +117,7 @@ Transform:
   m_GameObject: {fileID: 567201615189160668}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8033941386397844217}
@@ -194,10 +194,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 5
-  radius: 0.23
+  radius: 0.38
   height: 2
   canMove: 1
-  maxSpeed: 1
+  maxSpeed: 0.9
   gravity: {x: NaN, y: NaN, z: NaN}
   groundMask:
     serializedVersion: 2
@@ -270,9 +270,9 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.49, y: 1.22}
+  m_Size: {x: 0.4, y: 1.28}
   m_Direction: 0
---- !u!114 &6397528553714221590
+--- !u!114 &5675270839163391646
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -284,12 +284,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2e3577a429734d04bb1f50e9c5db9fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthPopup: {fileID: 7465214950022707962, guid: 8a9fe5a59f79b48de9b3448221a8ffe0, type: 3}
+  popupOffset: {x: 0, y: -0.8, z: 0}
+  hitAudio: {fileID: 8300000, guid: cf4b7e0e061a6420ab965feac5cd087a, type: 3}
   isPlayer: 0
-  health: 5
-  maxHealth: 5
-  score: 10
-  hit: {fileID: 8300000, guid: cf4b7e0e061a6420ab965feac5cd087a, type: 3}
---- !u!114 &3487549720833816818
+  health: 10
+  maxHealth: 10
+  score: 7
+--- !u!114 &5841542186559862152
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -302,13 +304,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon: {fileID: 1427824496484414930}
-  attackStrength: 3
+  attackStrength: 2
   attackFrequency: 2
-  attackAngle: 30
+  attackAngle: 60
   playerLayer:
     serializedVersion: 2
     m_Bits: 256
---- !u!82 &3001428567194614885
+--- !u!82 &9064359702380637592
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -414,7 +416,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9033184094007628126}
   m_Layer: 11
-  m_Name: Crucifix
+  m_Name: Ax
   m_TagString: EnemyWeapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -428,8 +430,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1427824496484414930}
   m_LocalRotation: {x: 0, y: 0, z: -0.9666002, w: 0.2562894}
-  m_LocalPosition: {x: 0, y: 0.1, z: 0}
-  m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
+  m_LocalPosition: {x: 0, y: 0.38, z: 0}
+  m_LocalScale: {x: 0.20999998, y: 0.20999998, z: 0.20999998}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3924048376192692420}
@@ -462,7 +464,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5510236511523440081}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.95, z: 0}
+  m_LocalPosition: {x: 0, y: 3.63, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -510,7 +512,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: -1787410056, guid: 89622685a41174446b2943796965d8d6, type: 3}
+  m_Sprite: {fileID: -1625511960, guid: 89622685a41174446b2943796965d8d6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -553,8 +555,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.07}
-  m_Size: {x: 2.02, y: 8.08}
+  m_Offset: {x: 0, y: -0.25}
+  m_Size: {x: 2.02, y: 5.59}
   m_Direction: 0
 --- !u!1 &7518097126006999260
 GameObject:
@@ -622,4 +624,4 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1.3
+  m_Radius: 1.1

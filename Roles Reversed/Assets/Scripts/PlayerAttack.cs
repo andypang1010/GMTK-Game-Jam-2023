@@ -17,11 +17,6 @@ public class PlayerAttack : MonoBehaviour
 
     private void Start()
     {
-        W.transform.localScale = new Vector3(attackRadius, attackRadius);
-        A.transform.localScale = new Vector3(attackRadius, attackRadius);
-        S.transform.localScale = new Vector3(attackRadius, attackRadius);
-        D.transform.localScale = new Vector3(attackRadius, attackRadius);
-
         W.SetActive(false);
         A.SetActive(false);
         S.SetActive(false);
@@ -32,6 +27,7 @@ public class PlayerAttack : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Space)) {
             GameObject activeCollider = SetActiveCollider();
+            activeCollider.GetComponentInChildren<BoxCollider2D>().size = new Vector2(attackRadius, attackRadius);
 
             // Use LayerMask to filter colliders
             ContactFilter2D enemyFilter = new ContactFilter2D

@@ -1,13 +1,15 @@
 using UnityEngine;
+using TMPro;
 
 public class Health : MonoBehaviour
 {
+    public GameObject healthPopup;
+    public AudioClip hitAudio;
+
     public bool isPlayer;
     public int health;
     public int maxHealth;
     public int score;
-
-    public AudioClip hit;
 
     private AudioSource source;
 
@@ -29,13 +31,37 @@ public class Health : MonoBehaviour
         }
     }
 
-    public void Attacked(int damage) {
+    public void Attacked(int damage)
+    {
+
+        // Inflict damage
         health -= damage;
-        if (isPlayer) {
+
+        ShowPopup();
+
+        // If the character is the player, update the health on stats manager
+        if (isPlayer)
+        {
             StatsManager.Instance.SetHealth(health);
         }
-        else {
-            source.PlayOneShot(hit);
+        else
+        {
+            // Play audio
+            source.PlayOneShot(hitAudio);
+        }
+    }
+
+    private void ShowPopup()
+    {
+        // If popup is not null, show a popup at the character's position
+        if (healthPopup)
+        {
+            var ins = Instantiate(healthPopup, transform.position, Quaternion.identity, transform);
+
+            // Set the text to the remaining health of the character if health is positive
+            if (health > 0) {
+                ins.GetComponent<TextMeshPro>().SetText(health.ToString());
+            }
         }
     }
 

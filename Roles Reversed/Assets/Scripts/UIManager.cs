@@ -32,7 +32,7 @@ public class UIManager : MonoBehaviour
                 lostScreen.SetActive(false);
                 pauseMenu.SetActive(true);
 
-                timeText.text = StatsManager.Instance.formattedTime;
+                timeText.text = "You've survived: " + StatsManager.Instance.formattedTime;
 
                 break;
 
