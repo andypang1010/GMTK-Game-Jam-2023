@@ -436,7 +436,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1096375373371622007, guid: 2974cbddc1498457585798336a0e5e57, type: 3}
       propertyPath: minEnemyScore
-      value: 50
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5599641988941652343, guid: 2974cbddc1498457585798336a0e5e57, type: 3}
       propertyPath: m_Name

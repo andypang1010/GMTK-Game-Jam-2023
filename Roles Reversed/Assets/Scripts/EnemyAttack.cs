@@ -11,7 +11,7 @@ public class EnemyAttack : MonoBehaviour
 
     private bool isAttacking = false;
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         // Attack whenever our weapon collides with the player
         if (CompareLayer(targetLayer, collision) && !isAttacking)
