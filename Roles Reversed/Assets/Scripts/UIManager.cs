@@ -36,7 +36,6 @@ public class UIManager : MonoBehaviour
 
                 continueButton.SetActive(true);
                 pauseButton.SetActive(false);
-                timeText.text = "You've survived: " + StatsManager.Instance.formattedTime;
 
                 break;
 
@@ -45,6 +44,7 @@ public class UIManager : MonoBehaviour
                 pauseMenu.SetActive(false);
                 lostScreen.SetActive(true);
 
+                timeText.text = "You've survived: " + StatsManager.Instance.formattedTime;
                 waveText.text = "YOU MADE IT TO WAVE " + LevelManager.Instance.GetWave();
 
                 break;

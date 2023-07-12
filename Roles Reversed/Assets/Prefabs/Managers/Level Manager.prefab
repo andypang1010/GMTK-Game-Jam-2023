@@ -44,14 +44,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9cf36f3538034012b9c29d2654d63f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 800764685724930302, guid: 948b060dc117c4b9ca56db3005c1aaf9, type: 3}
+  Player: {fileID: 439600038371020176, guid: 948b060dc117c4b9ca56db3005c1aaf9, type: 3}
+  minEnemyScore: 3
   Enemies:
   - {fileID: 567201615189160668, guid: 33fe96da061d6cc4b824af6598ee3c6e, type: 3}
   - {fileID: 567201615189160668, guid: d713927b10c36244495c2256ae812fe9, type: 3}
-  - {fileID: 567201615189160668, guid: 8c0c986d2c601e24aa1d332c0fac4d2b, type: 3}
-  - {fileID: 567201615189160668, guid: 598d3c6d7caf8f24eb61ce6b6d608c21, type: 3}
+  - {fileID: 7250070095746705502, guid: 8c0c986d2c601e24aa1d332c0fac4d2b, type: 3}
+  - {fileID: 2893964037684059429, guid: 598d3c6d7caf8f24eb61ce6b6d608c21, type: 3}
   - {fileID: 567201615189160668, guid: 5c77fe4c681d0834a89f4c7a80c709c6, type: 3}
-  minEnemyScore: 3
   wave: 0
   numEnemiesRemaining: 0
   minNumEnemies: 3

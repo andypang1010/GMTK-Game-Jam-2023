@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyAttack : MonoBehaviour
@@ -11,44 +10,24 @@ public class EnemyAttack : MonoBehaviour
     public LayerMask targetLayer;
 
     private bool isAttacking = false;
-    private List<GameObject> attackQueue = new List<GameObject>();
 
-    // Add opponent to attack queue when entering attack radius
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (CompareLayer(targetLayer, collision)) {
-            attackQueue.Add(collision.gameObject);
-        }
-    }
-
-    // Remove opponent from attack queue when exiting attack radius or becomes dead
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (attackQueue.Contains(collision.gameObject))
-        {
-            attackQueue.Remove(collision.gameObject);
-        }
-    }
-
-    // Attack whenever an enemy is within radius
-    private void OnTriggerStay2D(Collider2D collision)
-    {
+        // Attack whenever our weapon collides with the player
         if (CompareLayer(targetLayer, collision) && !isAttacking)
         {
-            //print(attackQueue[0].ToString());
-            StartCoroutine(Attack(attackQueue[0]));
+            StartCoroutine(Attack(collision.gameObject));
         }
     }
 
     // Attack animation coroutine
-    private IEnumerator Attack(GameObject target)
+    private IEnumerator Attack(GameObject player)
     {
-        //print(target.ToString());
         isAttacking = true;
         float currentAngle = 0f;
 
         // Offset weapon angle
-        weapon.transform.up = target.transform.position - transform.position;
+        weapon.transform.up = player.transform.position - transform.position;
         weapon.transform.rotation =
             weapon.transform.rotation * Quaternion.Euler(0, 0, attackAngle / 2);
 
@@ -68,7 +47,7 @@ public class EnemyAttack : MonoBehaviour
             yield return null;
         }
 
-        target.GetComponent<Health>().Attacked(attackStrength);
+        player.GetComponent<Health>().Attacked(attackStrength);
 
         isAttacking = false;
     }

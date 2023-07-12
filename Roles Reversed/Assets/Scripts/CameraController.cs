@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    public Transform playerTransform;
     public float startSize;
     public float maxSize;
     public float sizeIncrement;
@@ -12,13 +13,17 @@ public class CameraController : MonoBehaviour
 
     void Start()
     {
+        transform.position = new Vector3(playerTransform.position.x, playerTransform.position.y, -1);
         camera = GetComponent<Camera>();
         camera.orthographicSize = startSize;
     }
 
     void Update()
     {
-        if (camera.orthographicSize + sizeIncrement < maxSize) {
+        if (LevelManager.Instance.GetWave() == 0) {
+            camera.orthographicSize = startSize;
+        }
+        else if (camera.orthographicSize + sizeIncrement < maxSize) {
             camera.orthographicSize = startSize + sizeIncrement * (LevelManager.Instance.GetWave() - 1);
         }
         else {

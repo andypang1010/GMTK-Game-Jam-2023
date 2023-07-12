@@ -17,12 +17,10 @@ public class Health : MonoBehaviour
     void Start()
     {
         health = maxHealth;
+        source = GetComponent<AudioSource>();
         lastWave = LevelManager.Instance.GetWave();
         if (isPlayer) {
             StatsManager.Instance.SetHealth(maxHealth);
-        }
-        else {
-            source = GetComponent<AudioSource>();
         }
     }
 
@@ -50,11 +48,9 @@ public class Health : MonoBehaviour
         {
             StatsManager.Instance.SetHealth(health);
         }
-        else
-        {
-            // Play audio
-            source.PlayOneShot(hitAudio);
-        }
+
+        // Play audio
+        source.PlayOneShot(hitAudio);
     }
 
     private void ShowPopup()
