@@ -1,82 +1,34 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    public GameObject W, A, S, D;
-
-    public GameObject weapon;
     public int attackStrength, attackFrequency;
     public float attackRadius;
     public LayerMask enemyLayerMask;
 
     private bool isAttacking = false;
-    private Collider2D[] targets = new Collider2D[100];
+    private GameObject parent;
+    private List<GameObject> targets = new();
 
     private void Start()
     {
-        W.SetActive(false);
-        A.SetActive(false);
-        S.SetActive(false);
-        D.SetActive(false);
+        parent = transform.parent.gameObject;
     }
 
     private void Update()
     {
         if (Input.GetKey(KeyCode.Space)) {
-            GameObject activeCollider = SetActiveCollider();
-            activeCollider.GetComponentInChildren<BoxCollider2D>().size = new Vector2(attackRadius, attackRadius);
-
-            // Use LayerMask to filter colliders
-            ContactFilter2D enemyFilter = new ContactFilter2D
-            {
-                useLayerMask = true,
-                layerMask = enemyLayerMask
-            };
-
-            // Find all colliders in the active collider 
-            Physics2D.OverlapCollider(activeCollider.GetComponentInChildren<BoxCollider2D>(), enemyFilter, targets);
-
             AttackInDirection();
         }
     }
 
-    // Attack animation coroutine
-    private IEnumerator Attack(Vector3 attackDir)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        isAttacking = true;
-        float currentAngle = 0f;
-        float attackAngle = 180;
-
-        // Offset weapon angle
-        weapon.transform.up = attackDir;
-        weapon.transform.rotation =
-            weapon.transform.rotation * Quaternion.Euler(0, 0, attackAngle / 2);
-
-        float attackInterval = 1.0f / attackFrequency;
-
-        // Rotate the weapon while the sword is not at the target angle
-        for (float timer = 0; timer < attackInterval; timer += Time.deltaTime)
-        {
-            float targetAngle = Mathf.Lerp(
-                0,
-                -attackAngle,
-                Mathf.Pow(timer / attackInterval, 1.5f)
-            );
-            weapon.transform.rotation =
-                weapon.transform.rotation * Quaternion.Euler(0, 0, targetAngle - currentAngle);
-            currentAngle = targetAngle;
-            yield return null;
-        }
-
-        isAttacking = false;
-
-        foreach (Collider2D target in targets)
-        {
-            if (target.gameObject.TryGetComponent(out Health health))
-            {
-                health.Attacked(attackStrength);
-            }
+        // If the player is attacking, the collider is an enemy, and the enemy is not already a target
+        if (isAttacking && CompareLayer(enemyLayerMask, collision) && !targets.Contains(collision.gameObject)) {
+            targets.Add(collision.gameObject);
         }
     }
 
@@ -109,32 +61,51 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    // Set the active collider using W,A,S,D
-    private GameObject SetActiveCollider() {
-        W.SetActive(false);
-        A.SetActive(false);
-        S.SetActive(false);
-        D.SetActive(false);
+    // Attack animation coroutine
+    private IEnumerator Attack(Vector3 attackDir)
+    {
+        float currentAngle = 0f;
+        float attackAngle = 180;
 
-        if (Input.GetKey(KeyCode.W))
+        // Offset weapon angle
+        parent.transform.up = attackDir;
+        parent.transform.rotation =
+            parent.transform.rotation * Quaternion.Euler(0, 0, attackAngle / 2);
+
+        float attackInterval = 1.0f / attackFrequency;
+        isAttacking = true;
+
+        // Rotate the weapon while the sword is not at the target angle
+        for (float timer = 0; timer < attackInterval; timer += Time.deltaTime)
         {
-            W.SetActive(true);
-            return W;
+            float targetAngle = Mathf.Lerp(
+                0,
+                -attackAngle,
+                Mathf.Pow(timer / attackInterval, 1.5f)
+            );
+            parent.transform.rotation =
+                parent.transform.rotation * Quaternion.Euler(0, 0, targetAngle - currentAngle);
+            currentAngle = targetAngle;
+            yield return null;
         }
-        else if (Input.GetKey(KeyCode.A))
+
+
+        foreach (GameObject target in targets)
         {
-            A.SetActive(true);
-            return A;
+            if (target.TryGetComponent(out Health health))
+            {
+                health.Attacked(attackStrength);
+            }
         }
-        else if (Input.GetKey(KeyCode.S))
-        {
-            S.SetActive(true);
-            return S;
-        }
-        else if (Input.GetKey(KeyCode.D))
-        {
-            D.SetActive(true);
-        }
-        return D;
+
+        targets.Clear();
+        isAttacking = false;
     }
+
+
+    private bool CompareLayer(LayerMask layer, Collider2D collider)
+    {
+        return (layer & 1 << collider.gameObject.layer) == 1 << collider.gameObject.layer;
+    }
+
 }

@@ -1,13 +1,13 @@
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
 
-    public GameObject gameHUD;
-    public GameObject pauseMenu;
-    public GameObject lostScreen;
+    public GameObject gameHUD, pauseMenu, lostScreen;
+    public GameObject pauseButton, continueButton;
     public TMP_Text scoreText, healthText, timeText, waveText;
 
     void Update()
@@ -22,16 +22,20 @@ public class UIManager : MonoBehaviour
                 lostScreen.SetActive(false);
                 gameHUD.SetActive(true);
 
+                continueButton.SetActive(false);
+                pauseButton.SetActive(true);
                 scoreText.text = "Score: " + StatsManager.Instance.GetScore();
-                healthText.text = "Health: " + StatsManager.Instance.GetHealth();
+                healthText.text = " × " + StatsManager.Instance.GetHealth();
 
                 break;
 
             case GameStates.Pause:
-                gameHUD.SetActive(false);
                 lostScreen.SetActive(false);
                 pauseMenu.SetActive(true);
+                gameHUD.SetActive(true);
 
+                continueButton.SetActive(true);
+                pauseButton.SetActive(false);
                 timeText.text = "You've survived: " + StatsManager.Instance.formattedTime;
 
                 break;
