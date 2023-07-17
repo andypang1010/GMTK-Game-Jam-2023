@@ -10,6 +10,7 @@ public class CameraController : MonoBehaviour
     public float sizeIncrement;
 
     private new Camera camera;
+    private Vector3 initMousePos;
 
     void Start()
     {
@@ -28,6 +29,20 @@ public class CameraController : MonoBehaviour
         }
         else {
             camera.orthographicSize = maxSize;
+        }
+
+        // initialize drag
+        if (Input.GetMouseButtonDown(1))
+        {
+            initMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        }
+
+        if (Input.GetMouseButton(1))
+        {
+            Vector3 curMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+            Vector3 pos = initMousePos - curMousePos;
+
+            transform.position = pos;
         }
     }
 }
